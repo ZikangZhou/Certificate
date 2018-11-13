@@ -13,7 +13,7 @@
         <!--距考试108天-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CourseTableViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TrainViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,6 +91,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="god-zh-hDj">
                                 <rect key="frame" x="90" y="325" width="64" height="64"/>
                                 <state key="normal" title="更多" image="icons8-plus-100"/>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jo3-a7-Xdm"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jGD-Dh-det">
                                 <rect key="frame" x="16" y="418" width="336" height="346"/>
@@ -103,14 +106,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="79.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="SAC" translatesAutoresizingMaskIntoConstraints="NO" id="VCj-hX-zmV">
-                                                    <rect key="frame" x="0.0" y="-1" width="80" height="80"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SAC" translatesAutoresizingMaskIntoConstraints="NO" id="VCj-hX-zmV">
+                                                    <rect key="frame" x="0.0" y="-1" width="80" height="81.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="BI2-XR-Jum"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dx-YF-dIM">
-                                                    <rect key="frame" x="80" y="-1" width="256" height="30"/>
+                                                    <rect key="frame" x="88" y="-1" width="41.666666666666657" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="cP5-Ei-326"/>
                                                     </constraints>
@@ -118,27 +121,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hGe-yY-wBP" customClass="RatingControl">
-                                                    <rect key="frame" x="80" y="37" width="256" height="42"/>
-                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hGe-yY-wBP" firstAttribute="top" secondItem="9dx-YF-dIM" secondAttribute="bottom" constant="8" symbolic="YES" id="1FI-YJ-T5Z"/>
-                                                <constraint firstItem="9dx-YF-dIM" firstAttribute="trailing" secondItem="hGe-yY-wBP" secondAttribute="trailing" id="2Fm-sF-TsL"/>
                                                 <constraint firstItem="VCj-hX-zmV" firstAttribute="top" secondItem="9dx-YF-dIM" secondAttribute="top" id="4Lo-2k-Wbk"/>
-                                                <constraint firstItem="VCj-hX-zmV" firstAttribute="bottom" secondItem="hGe-yY-wBP" secondAttribute="bottom" id="CP7-hJ-Od0"/>
                                                 <constraint firstItem="VCj-hX-zmV" firstAttribute="leading" secondItem="oU2-B0-QR6" secondAttribute="leading" id="Qiz-OO-NW2"/>
-                                                <constraint firstAttribute="trailing" secondItem="hGe-yY-wBP" secondAttribute="trailing" id="VjS-yE-GkY"/>
                                                 <constraint firstItem="VCj-hX-zmV" firstAttribute="top" secondItem="oU2-B0-QR6" secondAttribute="topMargin" constant="-12" id="XCt-L8-cho"/>
                                                 <constraint firstItem="VCj-hX-zmV" firstAttribute="centerY" secondItem="oU2-B0-QR6" secondAttribute="centerY" id="eYa-tS-Hti"/>
-                                                <constraint firstItem="9dx-YF-dIM" firstAttribute="leading" secondItem="VCj-hX-zmV" secondAttribute="trailing" id="iFu-4Q-ULG"/>
-                                                <constraint firstItem="9dx-YF-dIM" firstAttribute="leading" secondItem="hGe-yY-wBP" secondAttribute="leading" id="uAc-iw-ReH"/>
+                                                <constraint firstItem="9dx-YF-dIM" firstAttribute="leading" secondItem="VCj-hX-zmV" secondAttribute="trailing" constant="8" id="iFu-4Q-ULG"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9dx-YF-dIM" secondAttribute="trailing" constant="20" symbolic="YES" id="pcn-S0-T1R"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="9dx-YF-dIM" id="Rj2-ZJ-W21"/>
                                             <outlet property="photoImageView" destination="VCj-hX-zmV" id="ZJn-ZV-y2n"/>
-                                            <outlet property="ratingControl" destination="hGe-yY-wBP" id="LYa-5V-jVW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -194,6 +189,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="si9-fg-NLF"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="courseTableView" destination="jGD-Dh-det" id="w0Z-Gz-JcC"/>
                         <outlet property="searchDisplayController" destination="loe-4z-pe8" id="4IW-um-q0T"/>
                     </connections>
                 </viewController>

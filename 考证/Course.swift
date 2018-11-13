@@ -7,10 +7,31 @@
 //
 
 import Foundation
+import UIKit
 
 class Course {
-    var name: String
-    init() {
-        name = "证券从业资格考试"
+    
+    typealias courseId = UUID
+    
+    let id: courseId
+    let name: String
+    let image: UIImage
+    
+    init(name: String, image: UIImage) {
+        self.id = courseId()
+        self.name = name
+        self.image = image
+    }
+}
+
+extension Course: Hashable {
+    var hashValue: Int {
+        return id.hashValue
+    }
+}
+
+extension Course: Equatable {
+    public static func == (lhs: Course, rhs: Course) -> Bool {
+        return lhs.id == rhs.id
     }
 }

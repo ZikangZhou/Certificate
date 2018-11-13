@@ -8,19 +8,11 @@
 
 import UIKit
 
-class CourseTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TrainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //MARK: Properties
+    @IBOutlet weak var courseTableView: UITableView!
     
-    var courses = [Course]()
-    
-    //MARK: Private Methods
-    
-    private func loadSampleCourses() {
-        let course = Course()
-        courses += [course]
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,20 +22,44 @@ class CourseTableViewController: UIViewController, UITableViewDataSource, UITabl
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        //Load the sample data.
-        loadSampleCourses()
+        NotificationCenter.default.addObserver(self, selector: #selector(coursesDidChange), name: .CourseModelDidChangedNotification, object: nil)
+        
     }
+    
+    private func syncCourseTableView(for behavior: CourseModel.changeBehavior) {
+        switch behavior {
+        case .add(let indices):
+            let indexPaths = indices.map {IndexPath(row: $0, section: 0)}
+            courseTableView.insertRows(at: indexPaths, with: .automatic)
+        case .remove(let indices):
+            let indexPaths = indices.map {IndexPath(row: $0, section: 0)}
+            courseTableView.deleteRows(at: indexPaths, with: .automatic)
+        case .reload:
+            courseTableView.reloadData()
+        }
+    }
+    
+    @objc func coursesDidChange(_ notification: Notification) {
+        let behavior = notification.getUserInfo(for: .CourseModelDidChangedChangeBehaviorKey)
+        syncCourseTableView(for: behavior)
+    }
+    
+    @IBAction func addButtonPressed(_ sender: UIButton) {
+        let courses = CourseModel.shared
+        let name = "证券从业资格考试"
+        let image = #imageLiteral(resourceName: "SAC")
+        courses.append(course: .init(name: name, image: image))
+    }
+    
 
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return courses.count
+        return CourseModel.shared.count
     }
 
     
@@ -52,16 +68,22 @@ class CourseTableViewController: UIViewController, UITableViewDataSource, UITabl
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CourseTableViewCell else {
             fatalError("The dequeued cell is not an instance of CourseTableViewCell.")
         }
-        let course = courses[indexPath.row]
-        cell.nameLabel.text = course.name
-        cell.nameLabel.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
-        cell.photoImageView.image = #imageLiteral(resourceName: "SAC")
-
+        
         // TODO: Configure the cell...
+        cell.nameLabel.text = CourseModel.shared.course(at: indexPath.row).name
+        cell.nameLabel.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        cell.photoImageView.image = CourseModel.shared.course(at: indexPath.row).image
 
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, view, done in
+            CourseModel.shared.remove(at: indexPath.row)
+            done(true)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 
     /*
     // Override to support conditional editing of the table view.
