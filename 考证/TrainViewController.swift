@@ -8,10 +8,12 @@
 
 import UIKit
 
-class TrainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TrainViewController: UIViewController {
     
     //MARK: Properties
     @IBOutlet weak var courseTableView: UITableView!
+    
+    @IBOutlet weak var subjectCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,20 +22,21 @@ class TrainViewController: UIViewController, UITableViewDataSource, UITableViewD
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         NotificationCenter.default.addObserver(self, selector: #selector(coursesDidChange), name: .CourseModelDidChangedNotification, object: nil)
         
+        courseTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
     private func syncCourseTableView(for behavior: CourseModel.changeBehavior) {
         switch behavior {
         case .add(let indices):
-            let indexPaths = indices.map {IndexPath(row: $0, section: 0)}
-            courseTableView.insertRows(at: indexPaths, with: .automatic)
+            let indexPaths = IndexSet(indices)
+            courseTableView.insertSections(indexPaths, with: .automatic)
         case .remove(let indices):
-            let indexPaths = indices.map {IndexPath(row: $0, section: 0)}
-            courseTableView.deleteRows(at: indexPaths, with: .automatic)
+            let indexPaths = IndexSet(indices)
+            courseTableView.deleteSections(indexPaths, with: .automatic)
         case .reload:
             courseTableView.reloadData()
         }
@@ -51,17 +54,30 @@ class TrainViewController: UIViewController, UITableViewDataSource, UITableViewD
         courses.append(course: .init(name: name, image: image))
     }
     
+    var items = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "+"]
+    
+    
+}
 
-    // MARK: - Table view data source
-
+extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CourseModel.shared.count
     }
-
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "CourseTableViewCell"
@@ -69,65 +85,72 @@ class TrainViewController: UIViewController, UITableViewDataSource, UITableViewD
             fatalError("The dequeued cell is not an instance of CourseTableViewCell.")
         }
         
-        // TODO: Configure the cell...
-        cell.nameLabel.text = CourseModel.shared.course(at: indexPath.row).name
+        cell.nameLabel.text = CourseModel.shared.course(at: indexPath.section).name
         cell.nameLabel.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
-        cell.photoImageView.image = CourseModel.shared.course(at: indexPath.row).image
-
+        cell.photoImageView.image = CourseModel.shared.course(at: indexPath.section).image
+        
+        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        cell.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 8
+        cell.clipsToBounds = true
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, view, done in
-            CourseModel.shared.remove(at: indexPath.row)
+        let deleteAction = UIContextualAction(style: .destructive, title: "删除") { _, view, done in
+            CourseModel.shared.remove(at: indexPath.section)
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You tapped cell number \(indexPath.section).")
     }
-    */
+}
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+extension TrainViewController: UICollectionViewDataSource, UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.items.count
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "SubjectCollectionViewCell"
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? SubjectCollectionViewCell else {
+            fatalError("The dequeued cell is not an instance of SubjectTableViewCell.")
+        }
+        
+        cell.nameLabel.text = self.items[indexPath.item]
+        if cell.nameLabel.text == "+" {
+            cell.nameLabel.font = cell.nameLabel.font.withSize(26)
+        }
+        cell.nameLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        cell.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        cell.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 8
+        cell.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        cell.layer.shadowOffset = CGSize(width: 3, height: 3)
+        cell.layer.shadowOpacity = 0.7
+        cell.layer.shadowRadius = 4.0
+        
+        return cell
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("You selected cell #\(indexPath.item)!")
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     }
-    */
-
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    }
 }
