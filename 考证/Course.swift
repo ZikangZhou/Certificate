@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Course {
+struct Course {
     
     typealias courseId = UUID
     

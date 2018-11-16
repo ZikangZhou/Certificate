@@ -11,22 +11,39 @@ import UIKit
 class TrainViewController: UIViewController {
     
     //MARK: Properties
-    @IBOutlet weak var courseTableView: UITableView!
+    @IBOutlet private weak var courseTableView: UITableView!
     
-    @IBOutlet weak var subjectCollectionView: UICollectionView!
+    @IBOutlet private weak var subjectCollectionView: UICollectionView!
+    
+    @IBOutlet weak var trainScrollView: UIScrollView!
+    
+    @IBAction private func addButtonPressed(_ sender: UIButton) {
+        let name = "证券从业资格考试"
+        let image = #imageLiteral(resourceName: "SAC")
+        courses.append(course: .init(name: name, image: image))
+    }
+    
+    private var items = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "+"]
+    
+    private var courses = CourseModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         NotificationCenter.default.addObserver(self, selector: #selector(coursesDidChange), name: .CourseModelDidChangedNotification, object: nil)
         
         courseTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+    }
+    
+    @objc func coursesDidChange(_ notification: Notification) {
+        let behavior = notification.getUserInfo(for: .CourseModelDidChangedChangeBehaviorKey)
+        syncCourseTableView(for: behavior)
     }
     
     private func syncCourseTableView(for behavior: CourseModel.changeBehavior) {
@@ -41,28 +58,12 @@ class TrainViewController: UIViewController {
             courseTableView.reloadData()
         }
     }
-    
-    @objc func coursesDidChange(_ notification: Notification) {
-        let behavior = notification.getUserInfo(for: .CourseModelDidChangedChangeBehaviorKey)
-        syncCourseTableView(for: behavior)
-    }
-    
-    @IBAction func addButtonPressed(_ sender: UIButton) {
-        let courses = CourseModel.shared
-        let name = "证券从业资格考试"
-        let image = #imageLiteral(resourceName: "SAC")
-        courses.append(course: .init(name: name, image: image))
-    }
-    
-    var items = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "+"]
-    
-    
 }
 
 extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return CourseModel.shared.count
+        return courses.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,9 +86,9 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
             fatalError("The dequeued cell is not an instance of CourseTableViewCell.")
         }
         
-        cell.nameLabel.text = CourseModel.shared.course(at: indexPath.section).name
+        cell.nameLabel.text = courses.course(at: indexPath.section).name
         cell.nameLabel.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
-        cell.photoImageView.image = CourseModel.shared.course(at: indexPath.section).image
+        cell.photoImageView.image = courses.course(at: indexPath.section).image
         
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -100,7 +101,7 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "删除") { _, view, done in
-            CourseModel.shared.remove(at: indexPath.section)
+            self.courses.remove(at: indexPath.section)
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])

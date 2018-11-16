@@ -42,9 +42,17 @@ class CourseModel {
         case reload
     }
     
-    static let shared = CourseModel()
+    private var courses: [Course] = [] {
+        didSet {
+            let behavior = CourseModel.diff(prev: oldValue, cur: courses)
+            NotificationCenter.default.post(
+                name: .CourseModelDidChangedNotification,
+                object: self,
+                typedUserInfo: [.CourseModelDidChangedChangeBehaviorKey: behavior])
+        }
+    }
     
-    static func diff(prev: [Course], cur: [Course]) -> changeBehavior {
+    static private func diff(prev: [Course], cur: [Course]) -> changeBehavior {
         let prevSet = Set(prev)
         let curSet = Set(cur)
         if prevSet.isSubset(of: curSet) {
@@ -60,17 +68,15 @@ class CourseModel {
         }
     }
     
-    private var courses: [Course] = [] {
-        didSet {
-            let behavior = CourseModel.diff(prev: oldValue, cur: courses)
-            NotificationCenter.default.post(
-                name: .CourseModelDidChangedNotification,
-                object: self,
-                typedUserInfo: [.CourseModelDidChangedChangeBehaviorKey: behavior])
-        }
+    init() {}
+    
+    var count: Int {
+        return courses.count
     }
     
-    private init() {}
+    func course(at index: Int) -> Course {
+        return courses[index]
+    }
     
     func append(course: Course) {
         courses.append(course)
@@ -92,13 +98,5 @@ class CourseModel {
     func edit(prev: Course, cur: Course) {
         guard let index = courses.index(of: prev) else { return }
         courses[index] = cur
-    }
-    
-    var count: Int {
-        return courses.count
-    }
-    
-    func course(at index: Int) -> Course {
-        return courses[index]
     }
 }
