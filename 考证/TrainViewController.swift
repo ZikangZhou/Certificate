@@ -25,7 +25,7 @@ class TrainViewController: UIViewController {
     
     private var items = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "+"]
     
-    private var courses = CourseModel()
+    var courses = CourseModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

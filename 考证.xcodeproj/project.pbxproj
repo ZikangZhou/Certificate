@@ -29,6 +29,9 @@
 		050DFF66219BD1B700925184 /* SubjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */; };
 		050DFF67219BD1B700925184 /* SubjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */; };
 		050DFF68219BD1B700925184 /* SubjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */; };
+		0561B4B821A00FA700959E4D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4B721A00FA700959E4D /* LoginViewController.swift */; };
+		0561B4BA21A060E200959E4D /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4B921A060E200959E4D /* UserInfoModel.swift */; };
+		0561B4BC21A0645900959E4D /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4BB21A0645900959E4D /* UserInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		050A745E219942B500D7DE89 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		050DFF61219A711100925184 /* CourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
 		050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCollectionViewCell.swift; sourceTree = "<group>"; };
+		0561B4B721A00FA700959E4D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0561B4B921A060E200959E4D /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		0561B4BB21A0645900959E4D /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				050A7421219818B300D7DE89 /* AppDelegate.swift */,
+				0561B4BB21A0645900959E4D /* UserInfo.swift */,
+				0561B4B921A060E200959E4D /* UserInfoModel.swift */,
+				0561B4B721A00FA700959E4D /* LoginViewController.swift */,
 				050A745E219942B500D7DE89 /* Course.swift */,
 				050DFF61219A711100925184 /* CourseModel.swift */,
 				050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */,
@@ -285,8 +294,11 @@
 				050A7453219928CA00D7DE89 /* CourseTableViewCell.swift in Sources */,
 				050A745F219942B500D7DE89 /* Course.swift in Sources */,
 				050A742A219818B300D7DE89 /* __.xcdatamodeld in Sources */,
+				0561B4BA21A060E200959E4D /* UserInfoModel.swift in Sources */,
+				0561B4B821A00FA700959E4D /* LoginViewController.swift in Sources */,
 				050A745B2199370000D7DE89 /* TrainViewController.swift in Sources */,
 				050A7422219818B300D7DE89 /* AppDelegate.swift in Sources */,
+				0561B4BC21A0645900959E4D /* UserInfo.swift in Sources */,
 				050DFF62219A711100925184 /* CourseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
