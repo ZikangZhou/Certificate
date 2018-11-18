@@ -10,7 +10,7 @@ import Foundation
 
 class UserInfoModel {
     
-    var userInfo: Set<UserInfo> = Set<UserInfo>()
+    private var userInfo: Set<UserInfo> = Set<UserInfo>()
     
     init() { }
     
@@ -105,7 +105,16 @@ class UserInfoModel {
         return nil
     }
     
-    func contains(name: String?, password: String?) -> Bool {
+    func contains(name: String?) -> Bool {
+        for user in userInfo {
+            if user.phone == name || user.email == name {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func passwordCorrect(name: String?, password: String?) -> Bool {
         for user in userInfo {
             if (user.phone == name || user.email == name) && user.password == password {
                 return true
