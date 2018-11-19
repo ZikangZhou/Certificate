@@ -23,36 +23,38 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
+        if let identifier = segue.identifier, let vc = segue.destination as? LoginOptionViewController {
             switch identifier {
-            case "loginWithTextMessage":
-                if let vc = segue.destination as? LoginWithTextMessageViewController {
-                    vc.timerDelegate = self
-                    if isCounting {
-                        vc.isEnabledOfRetrieveButton = false
-                        vc.alphaOfRetrieveButton = 0.25
-                    }
-                    else {
-                        vc.isEnabledOfRetrieveButton = true
-                        vc.alphaOfRetrieveButton = 1.0
-                    }
-                    if remainedTime > 0 {
-                        vc.titleOfRetrieveButton = "请等待\(remainedTime)秒"
-                    }
-                    else {
-                        vc.titleOfRetrieveButton = "获取验证码"
-                    }
+            case "loginWithTextMessage", "retrievePassword":
+                vc.timerDelegate = self
+                if isCounting {
+                    vc.isEnabledOfRetrieveButton = false
+                    vc.alphaOfRetrieveButton = 0.25
+                }
+                else {
+                    vc.isEnabledOfRetrieveButton = true
+                    vc.alphaOfRetrieveButton = 1.0
+                }
+                if remainedTime > 0 {
+                    vc.titleOfRetrieveButton = "请等待\(remainedTime)秒"
+                }
+                else {
+                    vc.titleOfRetrieveButton = "获取验证码"
                 }
             default:
                 break
+            }
+            if identifier == "retrievePassword" {
+                vc.titleOfNextStepButton = "下一步"
+            }
+            else if identifier == "loginWithTextMessage" {
+                vc.titleOfNextStepButton = "登录/注册"
             }
         }
     }
     
     @IBOutlet weak var userNameTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
     
     private weak var timer: Timer?
@@ -148,7 +150,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     }
     
     private func retrievePassword() {
-        
+        performSegue(withIdentifier: "retrievePassword", sender: nil)
     }
     
     private func loginWithTextMessage() {

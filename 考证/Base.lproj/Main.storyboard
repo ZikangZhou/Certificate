@@ -225,10 +225,10 @@
             </objects>
             <point key="canvasLocation" x="1811.594202898551" y="34.821428571428569"/>
         </scene>
-        <!--Login With Text Message View Controller-->
+        <!--Login Option View Controller-->
         <scene sceneID="F6E-Ar-6YK">
             <objects>
-                <viewController id="K7Q-mL-T7F" customClass="LoginWithTextMessageViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="K7Q-mL-T7F" customClass="LoginOptionViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dU9-hF-HWw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,6 +269,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextStepButtonPressed:" destination="K7Q-mL-T7F" eventType="touchUpInside" id="KM3-M4-UcN"/>
+                                    <segue destination="lGS-zO-Rfr" kind="show" identifier="enterPassword" id="w4i-7e-AMi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqp-9q-7fT">
@@ -318,6 +319,21 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1017.3913043478261" y="1132.3660714285713"/>
+        </scene>
+        <!--Enter Password View Controller-->
+        <scene sceneID="2GA-WV-JTF">
+            <objects>
+                <viewController id="lGS-zO-Rfr" customClass="EnterPasswordViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yAg-po-oAD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Knt-yt-CsI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gET-pf-1IB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1017" y="1840"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hxD-pT-NGq">
@@ -460,6 +476,7 @@
                         <outlet property="userNameTextField" destination="APm-WZ-8gv" id="Wfq-51-eee"/>
                         <segue destination="kvf-vk-Zx2" kind="show" identifier="loginSuccessfully" id="slc-vo-muY"/>
                         <segue destination="K7Q-mL-T7F" kind="show" identifier="loginWithTextMessage" id="uZR-tX-UJy"/>
+                        <segue destination="K7Q-mL-T7F" kind="show" identifier="retrievePassword" id="Twf-hl-6P7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RzG-5h-ioI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -572,4 +589,7 @@
         <image name="SAC" width="176" height="140"/>
         <image name="icons8-plus-100" width="37.5" height="37.5"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Twf-hl-6P7"/>
+    </inferredMetricsTieBreakers>
 </document>

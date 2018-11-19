@@ -12,7 +12,7 @@ protocol TimerDelegate: class {
     var isCounting: Bool {get set}
 }
 
-class LoginWithTextMessageViewController: UIViewController {
+class LoginOptionViewController: UIViewController {
 
     @IBOutlet weak var nextStepButton: UIButton!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -20,7 +20,7 @@ class LoginWithTextMessageViewController: UIViewController {
     @IBOutlet weak var retrieveVerificationCodeButton: UIButton!
     
     weak var timerDelegate: TimerDelegate? = nil
-    //var isCounting = false
+    var titleOfNextStepButton: String?
     var titleOfRetrieveButton: String? {
         didSet {
             retrieveVerificationCodeButton?.setTitle(titleOfRetrieveButton, for: .normal)
@@ -39,6 +39,7 @@ class LoginWithTextMessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nextStepButton.setTitle(titleOfNextStepButton, for: .normal)
         NotificationCenter.default.addObserver(self, selector: #selector(remainedTimeDidChange), name: .RetrieveRemainedTimeChangedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(isCountingDidChange), name: .RetrieveisCountingChangedNotification, object: nil)
     }
@@ -65,15 +66,31 @@ class LoginWithTextMessageViewController: UIViewController {
         }
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch identifier {
+        case "enterPassword":
+            if nextStepButton.title(for: .normal) == "下一步" {
+                return true
+            }
+            else {
+                return false
+            }
+        default:
+            return true
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationItem.backBarButtonItem?.title = "返回"
         retrieveVerificationCodeButton.isEnabled = isEnabledOfRetrieveButton
         retrieveVerificationCodeButton.alpha = alphaOfRetrieveButton
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        //timerDelegate?.isCounting = true
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -95,7 +112,7 @@ class LoginWithTextMessageViewController: UIViewController {
     }
     
     @IBAction func verificationTextFieldChanged(_ sender: UITextField) {
-        if let _ = sender.text {
+        if sender.text != nil, let phone = phoneTextField.text, Int(phone) != nil, phone.count == 11 {
             nextStepButton.isEnabled = true
             nextStepButton.alpha = 1.0
         }
@@ -107,7 +124,14 @@ class LoginWithTextMessageViewController: UIViewController {
     
     
     @IBAction func retrieveVerificationCodeButtonPressed(_ sender: UIButton) {
-        timerDelegate?.isCounting = true
+        if let phone = phoneTextField.text, Int(phone) != nil, phone.count == 11 {
+            timerDelegate?.isCounting = true
+        }
+        else {
+            let alert = UIAlertController(title: nil, message: "请正确输入手机号。", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     @IBAction func nextStepButtonPressed(_ sender: UIButton) {
