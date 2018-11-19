@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class LoginViewController: UIViewController, UITextFieldDelegate, MFMessageComposeViewControllerDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate, MFMessageComposeViewControllerDelegate {
 
     //MARK: Properties
     var userInfo = UserInfoModel()
@@ -22,15 +22,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate, MFMessageCompo
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "loginWithTextMessage":
+                if let vc = segue.destination as? LoginWithTextMessageViewController {
+                    vc.timerDelegate = self
+                    if isCounting {
+                        vc.isEnabledOfRetrieveButton = false
+                        vc.alphaOfRetrieveButton = 0.25
+                    }
+                    else {
+                        vc.isEnabledOfRetrieveButton = true
+                        vc.alphaOfRetrieveButton = 1.0
+                    }
+                    if remainedTime > 0 {
+                        vc.titleOfRetrieveButton = "请等待\(remainedTime)秒"
+                    }
+                    else {
+                        vc.titleOfRetrieveButton = "获取验证码"
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
-    */
     
     @IBOutlet weak var userNameTextField: UITextField!
     
@@ -38,7 +55,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate, MFMessageCompo
     
     @IBOutlet weak var loginButton: UIButton!
     
-
+    private weak var timer: Timer?
+    private var remainedTime = 0 {
+        didSet {
+         NotificationCenter.default.post(name: .RetrieveRemainedTimeChangedNotification, object: self, userInfo: ["value": remainedTime])
+            if remainedTime < 0 {
+                isCounting = false
+            }
+        }
+    }
+    var isCounting = true {
+        didSet {
+            NotificationCenter.default.post(name: .RetrieveisCountingChangedNotification, object: self, userInfo: ["value": isCounting])
+            if isCounting {
+                remainedTime = 60
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer  in
+                    self.remainedTime -= 1
+                }
+            }
+            else {
+                timer?.invalidate()
+            }
+        }
+    }
+    
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if let name = userNameTextField.text, let password = passwordTextField.text, !name.isEmpty, !password.isEmpty {
             if userInfo.contains(name: name) {
@@ -48,7 +88,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, MFMessageCompo
                 else {
                     let alert = UIAlertController(title: "登录失败", message: "账户或密码错误，请重新输入。", preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)
                 }
             }
             else {
@@ -112,14 +152,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, MFMessageCompo
     }
     
     private func loginWithTextMessage() {
+        /*
         if MFMessageComposeViewController.canSendText() {
             print("here")
             let controller = MFMessageComposeViewController()
             controller.body = "亲爱的周梓康：您好。"
             controller.recipients = ["+8618851822663"]
             controller.messageComposeDelegate = self
-            self.present(controller, animated: true, completion: nil)
+            present(controller, animated: true, completion: nil)
         }
+         */
+        performSegue(withIdentifier: "loginWithTextMessage", sender: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
