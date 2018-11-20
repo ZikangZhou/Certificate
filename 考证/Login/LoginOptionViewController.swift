@@ -40,7 +40,6 @@ class LoginOptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextStepButton.setTitle(titleOfNextStepButton, for: .normal)
         NotificationCenter.default.addObserver(self, selector: #selector(remainedTimeDidChange), name: .RetrieveRemainedTimeChangedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(isCountingDidChange), name: .RetrieveisCountingChangedNotification, object: nil)
     }
@@ -91,6 +90,7 @@ class LoginOptionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        nextStepButton.setTitle(titleOfNextStepButton, for: .normal)
         retrieveVerificationCodeButton.isEnabled = isEnabledOfRetrieveButton
         retrieveVerificationCodeButton.alpha = alphaOfRetrieveButton
     }
@@ -107,13 +107,21 @@ class LoginOptionViewController: UIViewController {
     }
     
     @IBAction func phoneTextFieldChanged(_ sender: UITextField) {
-        if titleOfRetrieveButton == "获取验证码", let phone = sender.text, let _ = Int(phone), phone.count == 11 {
+        if titleOfRetrieveButton == "获取验证码", let phone = sender.text, Int(phone) != nil, phone.count == 11 {
             isEnabledOfRetrieveButton = true
             alphaOfRetrieveButton = 1.0
         }
         else {
             isEnabledOfRetrieveButton = false
             alphaOfRetrieveButton = 0.25
+        }
+        if verificationTextField.text != nil, let phone = sender.text, Int(phone) != nil, phone.count == 11 {
+            nextStepButton.isEnabled = true
+            nextStepButton.alpha = 1.0
+        }
+        else {
+            nextStepButton.isEnabled = false
+            nextStepButton.alpha = 0.25
         }
     }
     
@@ -156,7 +164,7 @@ class LoginOptionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = "返回"
-        backBarButtonItem.tintColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
+        backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }

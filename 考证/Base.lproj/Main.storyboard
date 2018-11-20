@@ -223,7 +223,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1811.594202898551" y="34.821428571428569"/>
+            <point key="canvasLocation" x="1812" y="-378"/>
         </scene>
         <!--Login Option View Controller-->
         <scene sceneID="F6E-Ar-6YK">
@@ -321,6 +321,35 @@
             </objects>
             <point key="canvasLocation" x="-1017.3913043478261" y="1132.3660714285713"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="a8R-EH-a2F">
+            <objects>
+                <viewController storyboardIdentifier="IntroductionViewController3" modalTransitionStyle="partialCurl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H2i-iN-dDb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g6l-Ab-aQH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNp-1R-CZ9">
+                                <rect key="frame" x="100" y="667" width="215" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="一键进入学霸模式">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="okZ-U4-Ujp" kind="show" id="gyi-nC-FkY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="krc-LY-TUj"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="djv-w9-OJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2017.3913043478262" y="1839.5089285714284"/>
+        </scene>
         <!--Enter Password View Controller-->
         <scene sceneID="2GA-WV-JTF">
             <objects>
@@ -341,7 +370,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" smartQuotesType="no" textContentType="password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="lGS-zO-Rfr" id="Lhp-Kb-NUy"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-er-m4k">
                                 <rect key="frame" x="20" y="313" width="374" height="50"/>
@@ -357,17 +389,26 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="Knt-yt-CsI"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="bvP-iU-rjR" appends="YES" id="mLY-Jb-rdA"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gET-pf-1IB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="bvP-iU-rjR">
+                    <connections>
+                        <action selector="hideKeyboardWhenTappedAround:" destination="lGS-zO-Rfr" id="8fH-WF-Gjq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1017.3913043478261" y="1839.5089285714284"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Initial View Controller-->
         <scene sceneID="hxD-pT-NGq">
             <objects>
-                <navigationController navigationBarHidden="YES" id="vcH-p9-L4I" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="vcH-p9-L4I" customClass="InitialViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s3a-VH-iqp">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -378,6 +419,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cdo-Os-j8G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2017" y="360"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="arf-IN-0HD">
+            <objects>
+                <viewController storyboardIdentifier="IntroductionViewController1" modalTransitionStyle="partialCurl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YNh-Ta-WGP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CG2-fG-Rvq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <viewLayoutGuide key="safeArea" id="u1b-2V-LBg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sc1-jY-aKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3964" y="1840"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="o35-wz-JAN">
+            <objects>
+                <viewController storyboardIdentifier="IntroductionViewController2" modalTransitionStyle="partialCurl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jC6-bj-ncH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vWd-yP-41f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="QJV-cL-ZjG"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vQJ-It-0zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3020" y="1840"/>
+        </scene>
+        <!--Initial Page View Controller-->
+        <scene sceneID="gqV-mh-7g3">
+            <objects>
+                <pageViewController storyboardIdentifier="InitialPageViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="oLz-1p-E1b" customClass="InitialPageViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fQv-CP-NLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2017" y="1132"/>
         </scene>
         <!--Login-->
         <scene sceneID="ky2-22-Tn7">
@@ -396,7 +475,7 @@
                                             <constraint firstAttribute="height" constant="50" id="Kt1-0F-GDv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="手机号或邮箱" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="APm-WZ-8gv">
@@ -404,7 +483,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="1ij-Kt-6KP"/>
                                         </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done" textContentType="username"/>
                                         <connections>
@@ -417,7 +496,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="PG9-Gw-ZHk"/>
                                         </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                         <connections>
@@ -439,7 +518,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ko-LW-Cvt">
                                         <rect key="frame" x="297" y="271" width="77" height="36"/>
                                         <state key="normal" title="新用户注册">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="registerButtonPressed:" destination="okZ-U4-Ujp" eventType="touchUpInside" id="07x-Iu-bkn"/>
@@ -451,7 +530,7 @@
                                             <constraint firstAttribute="height" constant="36" id="HFt-7U-1T9"/>
                                         </constraints>
                                         <state key="normal" title="忘记密码?">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="forgetPasswordButtonPressed:" destination="okZ-U4-Ujp" eventType="touchUpInside" id="cVP-yL-5IV"/>
@@ -483,7 +562,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="hBg-fP-EBg" firstAttribute="bottom" secondItem="nUa-vW-Xsa" secondAttribute="bottom" constant="350" id="6tY-W1-t6f"/>
@@ -498,7 +577,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Jc6-4y-6VL">
                         <barButtonItem key="backBarButtonItem" title="返回" id="c4R-ya-IJ8">
-                            <color key="tintColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -506,9 +585,9 @@
                         <outlet property="passwordTextField" destination="Lvn-FG-DGZ" id="FY5-rd-I2I"/>
                         <outlet property="userNameTextField" destination="APm-WZ-8gv" id="Wfq-51-eee"/>
                         <segue destination="kvf-vk-Zx2" kind="show" identifier="loginSuccessfully" id="slc-vo-muY"/>
-                        <segue destination="K7Q-mL-T7F" kind="show" identifier="loginWithTextMessage" id="uZR-tX-UJy"/>
                         <segue destination="K7Q-mL-T7F" kind="show" identifier="retrievePassword" id="Twf-hl-6P7"/>
                         <segue destination="K7Q-mL-T7F" kind="show" identifier="register" id="UIT-ZI-GBY"/>
+                        <segue destination="K7Q-mL-T7F" kind="show" identifier="loginWithTextMessage" id="3xf-L1-FpF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RzG-5h-ioI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -530,8 +609,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BWb-Nf-b1u" kind="relationship" relationship="viewControllers" id="P8i-A5-dKE"/>
-                        <segue destination="TKG-pj-tna" kind="relationship" relationship="viewControllers" id="ydi-KI-3uO"/>
+                        <segue destination="BWb-Nf-b1u" kind="relationship" relationship="viewControllers" id="bzN-a4-Hma"/>
+                        <segue destination="TKG-pj-tna" kind="relationship" relationship="viewControllers" id="Nrp-Fd-Tvs"/>
+                        <segue destination="7em-06-2Bk" kind="relationship" relationship="viewControllers" id="qqz-hv-rrd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="beZ-Af-LhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -553,13 +633,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Faj-Lz-cbO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886" y="36"/>
+            <point key="canvasLocation" x="886" y="-378"/>
         </scene>
-        <!--Self Navigation-->
+        <!--Explore Navigation-->
         <scene sceneID="fHS-7L-jii">
             <objects>
-                <navigationController title="Self Navigation" id="TKG-pj-tna" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" id="3v6-rx-05J"/>
+                <navigationController title="Explore Navigation" id="TKG-pj-tna" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="发现" id="3v6-rx-05J"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3UY-Op-WpX">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -573,12 +653,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Osc-hs-WJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886" y="713"/>
+            <point key="canvasLocation" x="886" y="360"/>
         </scene>
-        <!--Self-->
+        <!--User Navigation-->
+        <scene sceneID="ydu-1h-19q">
+            <objects>
+                <navigationController title="User Navigation" id="7em-06-2Bk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="I75-Uv-YK9"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GjN-XF-33Z">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IaI-Pg-OA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886" y="1132"/>
+        </scene>
+        <!--Explore-->
         <scene sceneID="tLJ-Xx-dvi">
             <objects>
-                <viewController title="Self" id="vkk-Nb-yw4" sceneMemberID="viewController">
+                <viewController title="Explore" id="vkk-Nb-yw4" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zzc-eT-bWT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -599,7 +693,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8sb-6G-w5B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1812" y="713"/>
+            <point key="canvasLocation" x="1812" y="360"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5cn-4S-vVs">
@@ -614,7 +708,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cj4-7h-TSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2742" y="713"/>
+            <point key="canvasLocation" x="2736" y="360"/>
         </scene>
     </scenes>
     <resources>
@@ -622,7 +716,8 @@
         <image name="icons8-plus-100" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QMQ-Wv-THZ"/>
-        <segue reference="UIT-ZI-GBY"/>
+        <segue reference="slc-vo-muY"/>
+        <segue reference="hQ4-eD-5w2"/>
+        <segue reference="Twf-hl-6P7"/>
     </inferredMetricsTieBreakers>
 </document>

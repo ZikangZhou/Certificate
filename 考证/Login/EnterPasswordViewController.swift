@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EnterPasswordViewController: UIViewController {
+class EnterPasswordViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,4 +37,13 @@ class EnterPasswordViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
+    @IBAction func hideKeyboardWhenTappedAround(_ sender: UITapGestureRecognizer) {
+        sender.cancelsTouchesInView = false
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

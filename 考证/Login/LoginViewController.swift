@@ -118,8 +118,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     @IBAction func forgetPasswordButtonPressed(_ sender: UIButton) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let retrievePasswordAction = UIAlertAction(title: "找回密码", style: UIAlertAction.Style.default, handler: { action in self.retrievePassword() })
+        retrievePasswordAction.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "titleTextColor")
         let loginWithTextMessageAction = UIAlertAction(title: "短信验证码登录", style: UIAlertAction.Style.default, handler: { action in self.loginWithTextMessage() })
+        loginWithTextMessageAction.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "titleTextColor")
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel)
+        cancelAction.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "titleTextColor")
         actionSheet.addAction(retrievePasswordAction)
         actionSheet.addAction(loginWithTextMessageAction)
         actionSheet.addAction(cancelAction)
