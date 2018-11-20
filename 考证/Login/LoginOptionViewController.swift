@@ -19,6 +19,7 @@ class LoginOptionViewController: UIViewController {
     @IBOutlet weak var verificationTextField: UITextField!
     @IBOutlet weak var retrieveVerificationCodeButton: UIButton!
     
+    var identifier: String?
     weak var timerDelegate: TimerDelegate? = nil
     var titleOfNextStepButton: String?
     var titleOfRetrieveButton: String? {
@@ -69,11 +70,18 @@ class LoginOptionViewController: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch identifier {
         case "enterPassword":
-            if nextStepButton.title(for: .normal) == "下一步" {
+            if self.identifier == "retrievePassword" || self.identifier == "register" {
                 return true
             }
             else {
                 return false
+            }
+        case "loginWithTextMessageSuccessfully":
+            if self.identifier == "retrievePassword" || self.identifier == "register" {
+                return false
+            }
+            else {
+                return true
             }
         default:
             return true
@@ -83,14 +91,12 @@ class LoginOptionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationItem.backBarButtonItem?.title = "返回"
         retrieveVerificationCodeButton.isEnabled = isEnabledOfRetrieveButton
         retrieveVerificationCodeButton.alpha = alphaOfRetrieveButton
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //timerDelegate?.isCounting = true
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -126,6 +132,7 @@ class LoginOptionViewController: UIViewController {
     @IBAction func retrieveVerificationCodeButtonPressed(_ sender: UIButton) {
         if let phone = phoneTextField.text, Int(phone) != nil, phone.count == 11 {
             timerDelegate?.isCounting = true
+            // TODO: send message                                                                                                                                                                                                                                   
         }
         else {
             let alert = UIAlertController(title: nil, message: "请正确输入手机号。", preferredStyle: UIAlertController.Style.alert)
@@ -136,16 +143,20 @@ class LoginOptionViewController: UIViewController {
     
     @IBAction func nextStepButtonPressed(_ sender: UIButton) {
         
+        // TODO: check the verification code
+        
+        if identifier == "retrievePassword" || identifier == "register" {
+            performSegue(withIdentifier: "enterPassword", sender: nil)
+        }
+        else {
+            performSegue(withIdentifier: "loginWithTextMessageSuccessfully", sender: nil)
+        }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "返回"
+        backBarButtonItem.tintColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
-    */
-    
 }

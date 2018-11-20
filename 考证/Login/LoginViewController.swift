@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier, let vc = segue.destination as? LoginOptionViewController {
             switch identifier {
-            case "loginWithTextMessage", "retrievePassword":
+            case "loginWithTextMessage", "retrievePassword", "register":
                 vc.timerDelegate = self
                 if isCounting {
                     vc.isEnabledOfRetrieveButton = false
@@ -48,8 +48,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
                 vc.titleOfNextStepButton = "下一步"
             }
             else if identifier == "loginWithTextMessage" {
-                vc.titleOfNextStepButton = "登录/注册"
+                vc.titleOfNextStepButton = "登录"
             }
+            else if identifier == "register" {
+                vc.titleOfNextStepButton = "注册"
+            }
+            vc.identifier = identifier
         }
     }
     
@@ -114,7 +118,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     @IBAction func forgetPasswordButtonPressed(_ sender: UIButton) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let retrievePasswordAction = UIAlertAction(title: "找回密码", style: UIAlertAction.Style.default, handler: { action in self.retrievePassword() })
-        let loginWithTextMessageAction = UIAlertAction(title: "短信验证登录", style: UIAlertAction.Style.default, handler: { action in self.loginWithTextMessage() })
+        let loginWithTextMessageAction = UIAlertAction(title: "短信验证码登录", style: UIAlertAction.Style.default, handler: { action in self.loginWithTextMessage() })
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel)
         actionSheet.addAction(retrievePasswordAction)
         actionSheet.addAction(loginWithTextMessageAction)
@@ -146,7 +150,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     }
     
     private func register() {
-        
+        performSegue(withIdentifier: "register", sender: nil)
     }
     
     private func retrievePassword() {
