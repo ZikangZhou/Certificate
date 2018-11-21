@@ -80,6 +80,16 @@ class CourseModel {
         return selectedCourses.count
     }
     
+    func coursesOfSubjectCount(subject: String?) -> Int {
+        var count = 0
+        for course in courses {
+            if course.subject == subject {
+                count += 1
+            }
+        }
+        return count
+    }
+    
     func course(at index: Int) -> Course {
         return courses[index]
     }
@@ -105,6 +115,9 @@ class CourseModel {
     }
     
     func removeSelected(at selectedIndex: Int) {
+        if let index = courses.index(of: selectedCourses[selectedIndex]) {
+            courses[index].isSelected = false
+        }
         selectedCourses.remove(at: selectedIndex)
     }
     

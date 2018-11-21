@@ -38,6 +38,8 @@
 		0561B4C721A4035600959E4D /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4C621A4035600959E4D /* InitialViewController.swift */; };
 		0561B4C921A403F700959E4D /* InitialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4C821A403F700959E4D /* InitialPageViewController.swift */; };
 		0561B4CB21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */; };
+		0561B4CD21A58F8C00959E4D /* SearchDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */; };
+		0561B4CF21A5B96E00959E4D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4CE21A5B96E00959E4D /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		0561B4C621A4035600959E4D /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		0561B4C821A403F700959E4D /* InitialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialPageViewController.swift; sourceTree = "<group>"; };
 		0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesOfSubjectTableViewController.swift; sourceTree = "<group>"; };
+		0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDisplayController.swift; sourceTree = "<group>"; };
+		0561B4CE21A5B96E00959E4D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 				050A7452219928CA00D7DE89 /* CourseTableViewCell.swift */,
 				050A745A2199370000D7DE89 /* TrainViewController.swift */,
 				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
+				0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */,
+				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
 			);
 			path = Train;
 			sourceTree = "<group>";
@@ -336,6 +342,7 @@
 				050DFF66219BD1B700925184 /* SubjectCollectionViewCell.swift in Sources */,
 				0561B4C721A4035600959E4D /* InitialViewController.swift in Sources */,
 				050A7453219928CA00D7DE89 /* CourseTableViewCell.swift in Sources */,
+				0561B4CD21A58F8C00959E4D /* SearchDisplayController.swift in Sources */,
 				0561B4CB21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift in Sources */,
 				050A745F219942B500D7DE89 /* Course.swift in Sources */,
 				050A742A219818B300D7DE89 /* __.xcdatamodeld in Sources */,
@@ -346,6 +353,7 @@
 				0561B4C021A2976A00959E4D /* Notification.swift in Sources */,
 				0561B4C521A31DE300959E4D /* EnterPasswordViewController.swift in Sources */,
 				0561B4BE21A196D500959E4D /* LoginOptionViewController.swift in Sources */,
+				0561B4CF21A5B96E00959E4D /* MainViewController.swift in Sources */,
 				0561B4BC21A0645900959E4D /* UserInfo.swift in Sources */,
 				050DFF62219A711100925184 /* CourseModel.swift in Sources */,
 			);
