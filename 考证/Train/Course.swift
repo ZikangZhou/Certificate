@@ -15,12 +15,16 @@ struct Course {
     
     let id: courseId
     let name: String
-    let image: UIImage
+    let subject: String
+    var image: UIImage
+    var isSelected = false
     
-    init(name: String, image: UIImage) {
+    init(name: String, subject: String, image: UIImage, isSelected: Bool = false) {
         self.id = courseId()
         self.name = name
+        self.subject = subject
         self.image = image
+        self.isSelected = isSelected
     }
 }
 

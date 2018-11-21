@@ -19,8 +19,9 @@ class TrainViewController: UIViewController {
     
     @IBAction private func addButtonPressed(_ sender: UIButton) {
         let name = "证券从业资格考试"
+        let subject = "金融"
         let image = #imageLiteral(resourceName: "SAC")
-        courses.append(course: .init(name: name, image: image))
+        courses.append(course: .init(name: name, subject: subject, image: image, isSelected: true))
     }
     
     private var items = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "+"]
@@ -48,14 +49,16 @@ class TrainViewController: UIViewController {
     
     private func syncCourseTableView(for behavior: CourseModel.changeBehavior) {
         switch behavior {
-        case .add(let indices):
+        case .selectedAdd(let indices):
             let indexPaths = IndexSet(indices)
             courseTableView.insertSections(indexPaths, with: .automatic)
-        case .remove(let indices):
+        case .selectedRemove(let indices):
             let indexPaths = IndexSet(indices)
             courseTableView.deleteSections(indexPaths, with: .automatic)
-        case .reload:
+        case .selectedReload:
             courseTableView.reloadData()
+        default:
+            break
         }
     }
 }
@@ -63,7 +66,7 @@ class TrainViewController: UIViewController {
 extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return courses.count
+        return courses.selectedCount
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,10 +88,9 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CourseTableViewCell else {
             fatalError("The dequeued cell is not an instance of CourseTableViewCell.")
         }
-        
-        cell.nameLabel.text = courses.course(at: indexPath.section).name
+        cell.nameLabel.text = courses.selectedCourse(at: indexPath.section).name
         cell.nameLabel.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
-        cell.photoImageView.image = courses.course(at: indexPath.section).image
+        cell.photoImageView.image = courses.selectedCourse(at: indexPath.section).image
         
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -101,7 +103,7 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "删除") { _, view, done in
-            self.courses.remove(at: indexPath.section)
+            self.courses.removeSelected(at: indexPath.section)
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -142,7 +144,8 @@ extension TrainViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("You selected cell #\(indexPath.item)!")
+        //print("You selected cell #\(indexPath.item)!")
+        performSegue(withIdentifier: "showCoursesTable", sender: collectionView.cellForItem(at: indexPath))
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
