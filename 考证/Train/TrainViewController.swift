@@ -14,8 +14,6 @@ class TrainViewController: UIViewController {
     @IBOutlet private weak var courseTableView: UITableView!
     @IBOutlet private weak var subjectCollectionView: UICollectionView!
     @IBOutlet weak var trainScrollView: UIScrollView!
-    
-    private var items = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "+"]
     var courseModel = CourseModel()
     
     override func viewDidLoad() {
@@ -56,6 +54,7 @@ class TrainViewController: UIViewController {
         let image = #imageLiteral(resourceName: "SAC")
         courseModel.append(course: .init(name: name, subject: subject, image: image, isSelected: true))
         courseModel.append(course: Course(name: "教师资格证考试", subject: "教育", image: #imageLiteral(resourceName: "icons8-培训课-100")))
+        courseModel.append(course: Course(name: "测试一下", subject: "会计", image: #imageLiteral(resourceName: "icons8-plus-100")))
     }
     
     @objc func coursesDidChange(_ notification: Notification) {
@@ -133,7 +132,7 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
 extension TrainViewController: UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.items.count
+        return courseModel.subjects.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -142,10 +141,12 @@ extension TrainViewController: UICollectionViewDataSource, UICollectionViewDeleg
             fatalError("The dequeued cell is not an instance of SubjectTableViewCell.")
         }
         
-        cell.nameLabel.text = self.items[indexPath.item]
+        cell.nameLabel.text = courseModel.subjects[indexPath.item]
+        /*
         if cell.nameLabel.text == "+" {
             cell.nameLabel.font = cell.nameLabel.font.withSize(26)
         }
+        */
         cell.nameLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         cell.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

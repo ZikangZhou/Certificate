@@ -26,12 +26,18 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         title = subject
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.rowHeight = 80
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return courseModel?.coursesOfSubjectCount(subject: subject) ?? 0
+        if subject == "更多" {
+            return courseModel?.count ?? 0
+        }
+        else {
+            return courseModel?.coursesOfSubjectCount(subject: subject) ?? 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,9 +64,17 @@ class CoursesOfSubjectTableViewController: UITableViewController {
     }
     
     private func loadCoursesOfSubject(subject: String?) {
-        for index in 0..<courseModel!.count {
-            if courseModel!.course(at: index).subject == subject {
+        if subject == "更多" {
+            //coursesOfSubject.append(contentsOf: courseModel!.courses)
+            for index in 0..<courseModel!.count {
                 coursesOfSubject.append(courseModel!.course(at: index))
+            }
+        }
+        else {
+            for index in 0..<courseModel!.count {
+                if courseModel!.course(at: index).subject == subject {
+                    coursesOfSubject.append(courseModel!.course(at: index))
+                }
             }
         }
     }

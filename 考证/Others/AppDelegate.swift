@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "InitialPageViewController")
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
-        }  
+        }
         return true
     }
 

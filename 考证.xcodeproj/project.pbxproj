@@ -40,6 +40,14 @@
 		0561B4CB21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */; };
 		0561B4CD21A58F8C00959E4D /* SearchDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */; };
 		0561B4CF21A5B96E00959E4D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4CE21A5B96E00959E4D /* MainViewController.swift */; };
+		0561B4E321A6996B00959E4D /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4E021A6996B00959E4D /* SMS_SDK.framework */; };
+		0561B4E421A6996B00959E4D /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4E221A6996B00959E4D /* MOBFoundation.framework */; };
+		0561B4EA21A69B0C00959E4D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4E921A69B0C00959E4D /* libz.tbd */; };
+		0561B4EC21A69B1D00959E4D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4EB21A69B1D00959E4D /* libicucore.tbd */; };
+		0561B4EE21A69B2C00959E4D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4ED21A69B2C00959E4D /* MessageUI.framework */; };
+		0561B4F021A69B3600959E4D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4EF21A69B3600959E4D /* JavaScriptCore.framework */; };
+		0561B4F221A69B5600959E4D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F121A69B5600959E4D /* libc++.tbd */; };
+		0561B4F421A69F1800959E4D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F321A69F1800959E4D /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +97,17 @@
 		0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesOfSubjectTableViewController.swift; sourceTree = "<group>"; };
 		0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDisplayController.swift; sourceTree = "<group>"; };
 		0561B4CE21A5B96E00959E4D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0561B4DC21A6717800959E4D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		0561B4DD21A6717A00959E4D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		0561B4E021A6996B00959E4D /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		0561B4E221A6996B00959E4D /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
+		0561B4E521A69A6200959E4D /* 考证-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "考证-Bridging-Header.h"; sourceTree = "<group>"; };
+		0561B4E921A69B0C00959E4D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0561B4EB21A69B1D00959E4D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		0561B4ED21A69B2C00959E4D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		0561B4EF21A69B3600959E4D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		0561B4F121A69B5600959E4D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		0561B4F321A69F1800959E4D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +115,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0561B4F421A69F1800959E4D /* libsqlite3.tbd in Frameworks */,
+				0561B4F221A69B5600959E4D /* libc++.tbd in Frameworks */,
+				0561B4F021A69B3600959E4D /* JavaScriptCore.framework in Frameworks */,
+				0561B4EE21A69B2C00959E4D /* MessageUI.framework in Frameworks */,
+				0561B4EC21A69B1D00959E4D /* libicucore.tbd in Frameworks */,
+				0561B4EA21A69B0C00959E4D /* libz.tbd in Frameworks */,
+				0561B4E421A6996B00959E4D /* MOBFoundation.framework in Frameworks */,
+				0561B4E321A6996B00959E4D /* SMS_SDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,10 +146,13 @@
 		050A7415219818B300D7DE89 = {
 			isa = PBXGroup;
 			children = (
+				0561B4E521A69A6200959E4D /* 考证-Bridging-Header.h */,
+				0561B4DE21A6996B00959E4D /* SDK */,
 				050A7420219818B300D7DE89 /* 考证 */,
 				050A7438219818B600D7DE89 /* 考证Tests */,
 				050A7443219818B600D7DE89 /* 考证UITests */,
 				050A741F219818B300D7DE89 /* Products */,
+				0561B4E821A69B0A00959E4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,10 +220,10 @@
 				050DFF61219A711100925184 /* CourseModel.swift */,
 				050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */,
 				050A7452219928CA00D7DE89 /* CourseTableViewCell.swift */,
+				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
 				050A745A2199370000D7DE89 /* TrainViewController.swift */,
 				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
 				0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */,
-				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
 			);
 			path = Train;
 			sourceTree = "<group>";
@@ -205,6 +235,44 @@
 				0561B4BF21A2976A00959E4D /* Notification.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		0561B4DE21A6996B00959E4D /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4DF21A6996B00959E4D /* SMSSDK */,
+				0561B4E121A6996B00959E4D /* Required */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		0561B4DF21A6996B00959E4D /* SMSSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4E021A6996B00959E4D /* SMS_SDK.framework */,
+			);
+			path = SMSSDK;
+			sourceTree = "<group>";
+		};
+		0561B4E121A6996B00959E4D /* Required */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4E221A6996B00959E4D /* MOBFoundation.framework */,
+			);
+			path = Required;
+			sourceTree = "<group>";
+		};
+		0561B4E821A69B0A00959E4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4F321A69F1800959E4D /* libsqlite3.tbd */,
+				0561B4F121A69B5600959E4D /* libc++.tbd */,
+				0561B4EF21A69B3600959E4D /* JavaScriptCore.framework */,
+				0561B4ED21A69B2C00959E4D /* MessageUI.framework */,
+				0561B4EB21A69B1D00959E4D /* libicucore.tbd */,
+				0561B4E921A69B0C00959E4D /* libz.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +343,7 @@
 				TargetAttributes = {
 					050A741D219818B300D7DE89 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					050A7434219818B600D7DE89 = {
 						CreatedOnToolsVersion = 10.1;
@@ -405,6 +474,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				050A7426219818B300D7DE89 /* Base */,
+				0561B4DC21A6717800959E4D /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -413,6 +483,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				050A742E219818B600D7DE89 /* Base */,
+				0561B4DD21A6717A00959E4D /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -424,6 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -485,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -540,8 +613,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D29FVFDN5P;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SDK/SMSSDK",
+					"$(PROJECT_DIR)/SDK/Required",
+				);
 				INFOPLIST_FILE = "考证/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,6 +628,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "zzkLEAGUE.--";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "考证-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -558,8 +639,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D29FVFDN5P;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SDK/SMSSDK",
+					"$(PROJECT_DIR)/SDK/Required",
+				);
 				INFOPLIST_FILE = "考证/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -567,6 +654,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "zzkLEAGUE.--";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "考证-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

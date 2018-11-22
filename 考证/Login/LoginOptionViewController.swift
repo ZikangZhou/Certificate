@@ -139,8 +139,16 @@ class LoginOptionViewController: UIViewController {
     
     @IBAction func retrieveVerificationCodeButtonPressed(_ sender: UIButton) {
         if let phone = phoneTextField.text, Int(phone) != nil, phone.count == 11 {
-            timerDelegate?.isCounting = true
-            // TODO: send message                                                                                                                                                                                                                                   
+            SMSSDK.getVerificationCode(by: SMSGetCodeMethod.SMS, phoneNumber: "18851822663", zone: "86",
+                                       result:
+                { (error: Error?) -> Void in
+                    if error == nil {
+                        self.timerDelegate?.isCounting = true
+                    }
+                    else {
+                        print("Failed to send SMS.")
+                    }
+                })
         }
         else {
             let alert = UIAlertController(title: nil, message: "请正确输入手机号。", preferredStyle: UIAlertController.Style.alert)
@@ -151,13 +159,23 @@ class LoginOptionViewController: UIViewController {
     
     @IBAction func nextStepButtonPressed(_ sender: UIButton) {
         
-        // TODO: check the verification code
-        
-        if identifier == "retrievePassword" || identifier == "register" {
-            performSegue(withIdentifier: "enterPassword", sender: nil)
-        }
-        else {
-            performSegue(withIdentifier: "loginWithTextMessageSuccessfully", sender: nil)
+        if let phone = phoneTextField.text, let code = verificationTextField.text {
+            SMSSDK.commitVerificationCode(code, phoneNumber: phone, zone: "86") {
+                (error: Error?) -> Void in
+                if error == nil {
+                    if self.identifier == "retrievePassword" || self.identifier == "register" {
+                        self.performSegue(withIdentifier: "enterPassword", sender: nil)
+                    }
+                    else {
+                        self.performSegue(withIdentifier: "loginWithTextMessageSuccessfully", sender: nil)
+                    }
+                }
+                else {
+                    let alert = UIAlertController(title: nil, message: "验证失败", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
         }
     }
     

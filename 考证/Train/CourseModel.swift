@@ -19,7 +19,7 @@ class CourseModel {
         case selectedReload
     }
     
-    private var courses = [Course]() {
+    private(set) var courses = [Course]() {
         didSet {
             let behavior = CourseModel.diff(identifier: "courses", prev: oldValue, cur: courses)
             NotificationCenter.default.post(
@@ -28,6 +28,8 @@ class CourseModel {
                 typedUserInfo: [.CourseModelDidChangedChangeBehaviorKey: behavior])
         }
     }
+    
+    private(set) var subjects = ["金融", "计算机", "医学", "教育", "语言", "建筑", "会计", "更多"]
     
     private var selectedCourses = [Course]() {
         didSet {

@@ -260,7 +260,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="距考试108天" id="PiL-st-kdX">
-                        <barButtonItem key="backBarButtonItem" title=" " id="si9-fg-NLF"/>
+                        <barButtonItem key="backBarButtonItem" title="返回" id="si9-fg-NLF">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="courseTableView" destination="jGD-Dh-det" id="w0Z-Gz-JcC"/>
@@ -853,7 +855,7 @@
         <image name="icons8-plus-100" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QMQ-Wv-THZ"/>
+        <segue reference="slc-vo-muY"/>
         <segue reference="hQ4-eD-5w2"/>
         <segue reference="Twf-hl-6P7"/>
     </inferredMetricsTieBreakers>
