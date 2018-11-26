@@ -137,7 +137,7 @@ extension TrainViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellIdentifier = "SubjectCollectionViewCell"
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? SubjectCollectionViewCell else {
-            fatalError("The dequeued cell is not an instance of SubjectTableViewCell.")
+            fatalError("The dequeued cell is not an instance of SubjectCollectionViewCell.")
         }
         
         cell.nameLabel.text = courseModel.subjects[indexPath.item]

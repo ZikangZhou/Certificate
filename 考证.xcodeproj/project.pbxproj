@@ -49,6 +49,7 @@
 		0561B4F221A69B5600959E4D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F121A69B5600959E4D /* libc++.tbd */; };
 		0561B4F421A69F1800959E4D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F321A69F1800959E4D /* libsqlite3.tbd */; };
 		0561B4F621AC26B400959E4D /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F521AC26B400959E4D /* StudyViewController.swift */; };
+		0561B4F821AC54CF00959E4D /* EntranceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		0561B4F121A69B5600959E4D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		0561B4F321A69F1800959E4D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0561B4F521AC26B400959E4D /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
+		0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 				050DFF61219A711100925184 /* CourseModel.swift */,
 				050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */,
 				050A7452219928CA00D7DE89 /* CourseTableViewCell.swift */,
+				0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */,
 				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
 				050A745A2199370000D7DE89 /* TrainViewController.swift */,
 				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
@@ -410,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0561B4F821AC54CF00959E4D /* EntranceCollectionViewCell.swift in Sources */,
 				0561B4C921A403F700959E4D /* InitialPageViewController.swift in Sources */,
 				050DFF66219BD1B700925184 /* SubjectCollectionViewCell.swift in Sources */,
 				0561B4C721A4035600959E4D /* InitialViewController.swift in Sources */,
