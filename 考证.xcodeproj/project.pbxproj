@@ -48,6 +48,7 @@
 		0561B4F021A69B3600959E4D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4EF21A69B3600959E4D /* JavaScriptCore.framework */; };
 		0561B4F221A69B5600959E4D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F121A69B5600959E4D /* libc++.tbd */; };
 		0561B4F421A69F1800959E4D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F321A69F1800959E4D /* libsqlite3.tbd */; };
+		0561B4F621AC26B400959E4D /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F521AC26B400959E4D /* StudyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		0561B4EF21A69B3600959E4D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		0561B4F121A69B5600959E4D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		0561B4F321A69F1800959E4D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0561B4F521AC26B400959E4D /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				050A745A2199370000D7DE89 /* TrainViewController.swift */,
 				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
 				0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */,
+				0561B4F521AC26B400959E4D /* StudyViewController.swift */,
 			);
 			path = Train;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				0561B4BA21A060E200959E4D /* UserInfoModel.swift in Sources */,
 				0561B4B821A00FA700959E4D /* LoginViewController.swift in Sources */,
 				050A745B2199370000D7DE89 /* TrainViewController.swift in Sources */,
+				0561B4F621AC26B400959E4D /* StudyViewController.swift in Sources */,
 				050A7422219818B300D7DE89 /* AppDelegate.swift in Sources */,
 				0561B4C021A2976A00959E4D /* Notification.swift in Sources */,
 				0561B4C521A31DE300959E4D /* EnterPasswordViewController.swift in Sources */,

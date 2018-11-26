@@ -9,7 +9,12 @@
 import UIKit
 
 class InitialPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-
+    
+    var pageControl = UIPageControl()
+    private(set) lazy var orderedViewControllers: [UIViewController] = [newViewController(identifier: "IntroductionViewController1"),
+                                                                        newViewController(identifier: "IntroductionViewController2"),
+                                                                        newViewController(identifier: "IntroductionViewController3")]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,26 +58,6 @@ class InitialPageViewController: UIPageViewController, UIPageViewControllerDataS
         self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
     }
     
-    /*
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return orderedViewControllers.count
-    }
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let firstViewController = viewControllers?.first,
-            let firstViewControllerIndex = orderedViewControllers.firstIndex(of: firstViewController) else {
-                return 0
-        }
-        return firstViewControllerIndex
-    }
-    */
-    
-    var pageControl = UIPageControl()
-    
-    private(set) lazy var orderedViewControllers: [UIViewController] = [newViewController(identifier: "IntroductionViewController1"),
-                    newViewController(identifier: "IntroductionViewController2"),
-                    newViewController(identifier: "IntroductionViewController3")]
-    
     private func newViewController(identifier: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identifier)
     }
@@ -97,5 +82,4 @@ class InitialPageViewController: UIPageViewController, UIPageViewControllerDataS
         // Pass the selected object to the new view controller.
     }
     */
-
 }

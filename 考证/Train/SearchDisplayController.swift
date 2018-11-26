@@ -15,7 +15,7 @@ class SearchDisplayController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var courseModel: CourseModel?
-    var searchResult = [String]()
+    var searchResult = [Course]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,9 @@ class SearchDisplayController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        //searchBar.setValue("取消", forKey: "_cancelButtonText")
+        self.tabBarController?.tabBar.layer.zPosition = -1
+        tableView.rowHeight = 60
+        tableView.tableFooterView = UIView()
         (searchBar.value(forKey: "cancelButton") as! UIButton).setTitle("取消", for: .normal)
         (searchBar.value(forKey: "cancelButton") as! UIButton).setTitleColor(UIColor.black, for: .normal)
         searchBar.becomeFirstResponder()
@@ -32,28 +34,17 @@ class SearchDisplayController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.layer.zPosition = 0
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "返回"
+        backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
-    */
 
 }
 
@@ -73,7 +64,7 @@ extension SearchDisplayController: UISearchBarDelegate {
         for index in 0..<courseModel!.count {
             for ch in courseModel!.course(at: index).name {
                 if searchText.contains(ch) {
-                    searchResult.append(courseModel!.course(at: index).name)
+                    searchResult.append(courseModel!.course(at: index))
                     break
                 }
             }
@@ -95,8 +86,26 @@ extension SearchDisplayController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath)
         
-        cell.textLabel?.text = searchResult[indexPath.row]
+        cell.textLabel?.text = searchResult[indexPath.row].name
         cell.textLabel?.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if searchResult[indexPath.section].isSelected {
+            performSegue(withIdentifier: "GoToStudy", sender: nil)
+        }
+        else {
+            let alert = UIAlertController(title: nil, message: "是否将\(searchResult[indexPath.section].name)课程加入学习？", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: { action in self.addAndStudy(index: indexPath.section) }))
+            alert.addAction(UIAlertAction(title: "取消", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func addAndStudy(index: Int) {
+        courseModel!.select(course: searchResult[index])
+        searchResult[index].isSelected = true
+        performSegue(withIdentifier: "GoToStudy", sender: nil)
     }
 }

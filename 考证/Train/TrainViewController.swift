@@ -24,10 +24,9 @@ class TrainViewController: UIViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        courseTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         NotificationCenter.default.addObserver(self, selector: #selector(coursesDidChange), name: .CourseModelDidChangedNotification, object: nil)
-        
-        courseTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -125,7 +124,7 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.section).")
+        performSegue(withIdentifier: "GoToStudy", sender: nil)
     }
 }
 

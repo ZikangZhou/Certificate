@@ -10,6 +10,11 @@ import UIKit
 
 class EnterPasswordViewController: UIViewController, UITextFieldDelegate {
 
+    var userInfoModel: UserInfoModel?
+    var identifier: String?
+    var phone: String?
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,6 +45,19 @@ class EnterPasswordViewController: UIViewController, UITextFieldDelegate {
     @IBAction func hideKeyboardWhenTappedAround(_ sender: UITapGestureRecognizer) {
         sender.cancelsTouchesInView = false
         view.endEditing(true)
+    }
+    
+    @IBAction func confirmButtonPressed(_ sender: UIButton) {
+        if identifier == "retrievePassword" {
+            for user in userInfoModel!.userInfo {
+                if user.phone == phone {
+                    userInfoModel?.setUser(withId: user.id, newPassword: passwordTextField.text)
+                }
+            }
+        }
+        else if identifier == "register" {
+            userInfoModel!.addUser(user: UserInfo(phone: phone, password: passwordTextField.text))
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

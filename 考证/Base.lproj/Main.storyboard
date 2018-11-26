@@ -27,19 +27,19 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="82d-XI-scY">
-                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="752"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchResultCell" textLabel="FCG-Hf-jli" rowHeight="60" style="IBUITableViewCellStyleDefault" id="oqu-Qn-Q7Y">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchResultCell" textLabel="FCG-Hf-jli" rowHeight="80" style="IBUITableViewCellStyleDefault" id="oqu-Qn-Q7Y">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oqu-Qn-Q7Y" id="4WZ-kP-S9t">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FCG-Hf-jli">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="59.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="356" height="79.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -61,6 +61,7 @@
                     <connections>
                         <outlet property="searchBar" destination="6eP-Tu-RkE" id="fof-0F-YVw"/>
                         <outlet property="tableView" destination="82d-XI-scY" id="cgM-kO-muQ"/>
+                        <segue destination="R62-jK-StA" kind="show" identifier="GoToStudy" id="EtH-UY-r4Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nHF-aq-goV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -134,7 +135,7 @@
                                                     <constraint firstAttribute="height" constant="341" id="XSN-vi-JDx"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourseTableViewCell" rowHeight="80" id="Awo-ru-zQb" customClass="CourseTableViewCell" customModule="考证" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourseTableViewCell" rowHeight="80" id="Awo-ru-zQb" customClass="CourseTableViewCell" customModule="考证" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="374" height="80"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Awo-ru-zQb" id="oU2-B0-QR6">
@@ -148,7 +149,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dx-YF-dIM">
-                                                                    <rect key="frame" x="88" y="0.0" width="247" height="40"/>
+                                                                    <rect key="frame" x="88" y="0.0" width="286" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -270,6 +271,7 @@
                         <outlet property="trainScrollView" destination="d9c-9A-VNf" id="OIv-NX-fC6"/>
                         <segue destination="JkC-6j-obS" kind="show" identifier="showCoursesTable" id="45v-pn-Igp"/>
                         <segue destination="RLt-VW-IcG" kind="show" identifier="SearchDisplay" id="beb-6C-1Bm"/>
+                        <segue destination="R62-jK-StA" kind="show" identifier="GoToStudy" id="Um3-x1-cIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -279,13 +281,13 @@
         <!--Courses Table-->
         <scene sceneID="wAC-hn-tyn">
             <objects>
-                <tableViewController title="Courses Table" id="JkC-6j-obS" customClass="CoursesOfSubjectTableViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Courses Table" hidesBottomBarWhenPushed="YES" id="JkC-6j-obS" customClass="CoursesOfSubjectTableViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2Uc-6f-Tba">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CoursesOfSubjectCell" textLabel="Rsr-Xi-1eQ" rowHeight="80" style="IBUITableViewCellStyleDefault" id="z6G-8j-oQf">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CoursesOfSubjectCell" textLabel="Rsr-Xi-1eQ" rowHeight="80" style="IBUITableViewCellStyleDefault" id="z6G-8j-oQf">
                                 <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z6G-8j-oQf" id="6G7-Sp-RzI">
@@ -309,10 +311,28 @@
                             <outlet property="delegate" destination="JkC-6j-obS" id="Ie2-v5-PrD"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="R62-jK-StA" kind="show" identifier="GoToStudy" id="zPU-sy-g1x"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eF8-Wj-kj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2735" y="-378"/>
+        </scene>
+        <!--StudyViewController-->
+        <scene sceneID="sW5-T9-2gl">
+            <objects>
+                <viewController title="StudyViewController" hidesBottomBarWhenPushed="YES" id="R62-jK-StA" customClass="StudyViewController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vZe-gn-ImT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Tqu-ju-FcN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qrn-pk-SV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3730" y="-378"/>
         </scene>
         <!--Login Option View Controller-->
         <scene sceneID="F6E-Ar-6YK">
@@ -473,6 +493,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="confirmButtonPressed:" destination="lGS-zO-Rfr" eventType="touchUpInside" id="oxB-Te-FWV"/>
                                     <segue destination="kvf-vk-Zx2" kind="show" identifier="setPasswordSuccessfully" id="DDI-sS-m1N"/>
                                 </connections>
                             </button>
@@ -484,6 +505,9 @@
                             <outletCollection property="gestureRecognizers" destination="bvP-iU-rjR" appends="YES" id="mLY-Jb-rdA"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="passwordTextField" destination="amB-wJ-9bm" id="tSy-55-ViK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gET-pf-1IB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="bvP-iU-rjR">
@@ -593,7 +617,7 @@
                                             <outlet property="delegate" destination="okZ-U4-Ujp" id="uIe-67-C2l"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" alpha="0.25" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6T-96-Vwi">
+                                    <button opaque="NO" alpha="0.25" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6T-96-Vwi">
                                         <rect key="frame" x="0.0" y="204" width="374" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -858,5 +882,6 @@
         <segue reference="slc-vo-muY"/>
         <segue reference="hQ4-eD-5w2"/>
         <segue reference="Twf-hl-6P7"/>
+        <segue reference="EtH-UY-r4Y"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,6 +19,7 @@ class LoginOptionViewController: UIViewController {
     @IBOutlet weak var verificationTextField: UITextField!
     @IBOutlet weak var retrieveVerificationCodeButton: UIButton!
     
+    var userInfoModel: UserInfoModel?
     var identifier: String?
     weak var timerDelegate: TimerDelegate? = nil
     var titleOfNextStepButton: String?
@@ -44,25 +45,36 @@ class LoginOptionViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(isCountingDidChange), name: .RetrieveisCountingChangedNotification, object: nil)
     }
     
-    @objc func remainedTimeDidChange(_ notification: Notification) {
-        let remainedTime = notification.userInfo?["value"] as! Int
-        if remainedTime < 0 {
-            titleOfRetrieveButton = "获取验证码"
-        }
-        else {
-            titleOfRetrieveButton = "请等待\(remainedTime)秒"
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        nextStepButton.setTitle(titleOfNextStepButton, for: .normal)
+        retrieveVerificationCodeButton.isEnabled = isEnabledOfRetrieveButton
+        retrieveVerificationCodeButton.alpha = alphaOfRetrieveButton
     }
     
-    @objc func isCountingDidChange(_ notification: Notification) {
-        let isCounting = notification.userInfo?["value"] as! Bool
-        if !isCounting, let phone = phoneTextField.text, let _ = Int(phone), phone.count == 11 {
-            isEnabledOfRetrieveButton = true
-            alphaOfRetrieveButton = 1
-        }
-        else {
-            isEnabledOfRetrieveButton = false
-            alphaOfRetrieveButton = 0.25
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "返回"
+        backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "enterPassword":
+                if let vc = segue.destination as? EnterPasswordViewController {
+                    vc.identifier = self.identifier
+                    vc.phone = phoneTextField.text
+                    vc.userInfoModel = (self.navigationController?.viewControllers.first as? LoginViewController)?.userInfoModel
+                }
+            default:
+                break
+            }
         }
     }
     
@@ -87,19 +99,27 @@ class LoginOptionViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        nextStepButton.setTitle(titleOfNextStepButton, for: .normal)
-        retrieveVerificationCodeButton.isEnabled = isEnabledOfRetrieveButton
-        retrieveVerificationCodeButton.alpha = alphaOfRetrieveButton
+    @objc func remainedTimeDidChange(_ notification: Notification) {
+        let remainedTime = notification.userInfo?["value"] as! Int
+        if remainedTime < 0 {
+            titleOfRetrieveButton = "获取验证码"
+        }
+        else {
+            titleOfRetrieveButton = "请等待\(remainedTime)秒"
+        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    @objc func isCountingDidChange(_ notification: Notification) {
+        let isCounting = notification.userInfo?["value"] as! Bool
+        if !isCounting, let phone = phoneTextField.text, let _ = Int(phone), phone.count == 11 {
+            isEnabledOfRetrieveButton = true
+            alphaOfRetrieveButton = 1
+        }
+        else {
+            isEnabledOfRetrieveButton = false
+            alphaOfRetrieveButton = 0.25
+        }
     }
-    
 
     @IBAction func hideKeyboardWhenTappedAround(_ sender: UITapGestureRecognizer) {
         sender.cancelsTouchesInView = false
@@ -136,19 +156,36 @@ class LoginOptionViewController: UIViewController {
         }
     }
     
-    
     @IBAction func retrieveVerificationCodeButtonPressed(_ sender: UIButton) {
         if let phone = phoneTextField.text, Int(phone) != nil, phone.count == 11 {
-            SMSSDK.getVerificationCode(by: SMSGetCodeMethod.SMS, phoneNumber: "18851822663", zone: "86",
-                                       result:
-                { (error: Error?) -> Void in
+            if !userInfoModel!.contains(name: phone) && identifier == "retrievePassword" {
+                let alert = UIAlertController(title: nil, message: "该账号尚未注册。", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else if !userInfoModel!.contains(name: phone) && identifier == "loginWithTextMessage" {
+                let alert = UIAlertController(title: nil, message: "请先完成注册。", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else if userInfoModel!.contains(name: phone) && identifier == "register" {
+                let alert = UIAlertController(title: nil, message: "该账号已存在。", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                SMSSDK.getVerificationCode(by: SMSGetCodeMethod.SMS, phoneNumber: phone, zone: "86") {
+                    (error: Error?) -> Void in
                     if error == nil {
                         self.timerDelegate?.isCounting = true
                     }
                     else {
-                        print("Failed to send SMS.")
+                        let alert = UIAlertController(title: nil, message: "验证码请求失败，请重新获取。", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     }
-                })
+                }
+            }
         }
         else {
             let alert = UIAlertController(title: nil, message: "请正确输入手机号。", preferredStyle: UIAlertController.Style.alert)
@@ -177,12 +214,5 @@ class LoginOptionViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let backBarButtonItem = UIBarButtonItem()
-        backBarButtonItem.title = "返回"
-        backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }

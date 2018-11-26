@@ -24,11 +24,19 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         loadCoursesOfSubject(subject: subject)
         title = subject
+        //self.tabBarController?.tabBar.isHidden = true
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.rowHeight = 80
         tableView.reloadData()
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "返回"
+        backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,9 +71,20 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if coursesOfSubject[indexPath.section].isSelected {
+            performSegue(withIdentifier: "GoToStudy", sender: nil)
+        }
+        else {
+            let alert = UIAlertController(title: nil, message: "是否将\(coursesOfSubject[indexPath.section].name)课程加入学习？", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: { action in self.addAndStudy(index: indexPath.section) }))
+            alert.addAction(UIAlertAction(title: "取消", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     private func loadCoursesOfSubject(subject: String?) {
         if subject == "更多" {
-            //coursesOfSubject.append(contentsOf: courseModel!.courses)
             for index in 0..<courseModel!.count {
                 coursesOfSubject.append(courseModel!.course(at: index))
             }
@@ -77,6 +96,12 @@ class CoursesOfSubjectTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    private func addAndStudy(index: Int) {
+        courseModel!.select(course: coursesOfSubject[index])
+        coursesOfSubject[index].isSelected = true
+        performSegue(withIdentifier: "GoToStudy", sender: nil)
     }
     /*
     // Override to support conditional editing of the table view.
@@ -112,15 +137,4 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         return true
     }
     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

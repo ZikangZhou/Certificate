@@ -10,7 +10,7 @@ import Foundation
 
 class UserInfoModel {
     
-    private var userInfo: Set<UserInfo> = Set<UserInfo>()
+    private(set) var userInfo: Set<UserInfo> = Set<UserInfo>()
     
     init() { }
     

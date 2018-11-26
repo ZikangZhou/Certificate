@@ -138,4 +138,10 @@ class CourseModel {
             }
         }
     }
+    
+    func select(course: Course) {
+        guard let index = courses.index(of: course) else { return }
+        courses[index].isSelected = true
+        selectedCourses.append(courses[index])
+    }
 }

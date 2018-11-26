@@ -9,20 +9,25 @@
 import UIKit
 import MessageUI
 
-class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate, MFMessageComposeViewControllerDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate {
 
     //MARK: Properties
-    var userInfo = UserInfoModel()
-    
+    var userInfoModel = UserInfoModel()
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if !userInfo.contains(name: "18851822663") {
-            userInfo.addUser(user: UserInfo(phone: "18851822663", password: "kang1998"))
+        if !userInfoModel.contains(name: "18851822663") {
+            userInfoModel.addUser(user: UserInfo(phone: "18851822663", password: "kang1998"))
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "loginSuccessfully" {
+            return
+        }
         if let identifier = segue.identifier, let vc = segue.destination as? LoginOptionViewController {
             switch identifier {
             case "loginWithTextMessage", "retrievePassword", "register":
@@ -53,13 +58,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
             else if identifier == "register" {
                 vc.titleOfNextStepButton = "注册"
             }
+            vc.userInfoModel = userInfoModel
             vc.identifier = identifier
         }
     }
     
-    @IBOutlet weak var userNameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     private weak var timer: Timer?
     private var remainedTime = 0 {
@@ -87,8 +94,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if let name = userNameTextField.text, let password = passwordTextField.text, !name.isEmpty, !password.isEmpty {
-            if userInfo.contains(name: name) {
-                if userInfo.passwordCorrect(name: name, password: password) {
+            if userInfoModel.contains(name: name) {
+                if userInfoModel.passwordCorrect(name: name, password: password) {
                     performSegue(withIdentifier: "loginSuccessfully", sender: nil)
                 }
                 else {
@@ -110,7 +117,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
         changeStatusOfLoginButton()
     }
     
-    
     @IBAction func passwordTextFieldChanged(_ sender: UITextField) {
         changeStatusOfLoginButton()
     }
@@ -130,7 +136,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
         actionSheet.popoverPresentationController?.sourceRect = sender.bounds
         present(actionSheet, animated: true, completion: nil)
     }
-    
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         register()
@@ -161,25 +166,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate,
     }
     
     private func loginWithTextMessage() {
-        /*
-        if MFMessageComposeViewController.canSendText() {
-            print("here")
-            let controller = MFMessageComposeViewController()
-            controller.body = "亲爱的周梓康：您好。"
-            controller.recipients = ["+8618851822663"]
-            controller.messageComposeDelegate = self
-            present(controller, animated: true, completion: nil)
-        }
-         */
         performSegue(withIdentifier: "loginWithTextMessage", sender: nil)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }
