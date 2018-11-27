@@ -70,7 +70,7 @@ class LoginOptionViewController: UIViewController {
                 if let vc = segue.destination as? EnterPasswordViewController {
                     vc.identifier = self.identifier
                     vc.phone = phoneTextField.text
-                    vc.userInfoModel = (self.navigationController?.viewControllers.first as? LoginViewController)?.userInfoModel
+                    vc.userInfoModel = userInfoModel
                 }
             default:
                 break

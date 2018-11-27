@@ -44,6 +44,10 @@ class SearchDisplayController: UIViewController {
         backBarButtonItem.title = "返回"
         backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.navigationItem.backBarButtonItem = backBarButtonItem
+        if let vc = segue.destination as? StudyViewController, let cell = sender as? UITableViewCell {
+            vc.courseModel = courseModel
+            vc.courseName = cell.textLabel!.text
+        }
     }
 
 }
@@ -93,19 +97,19 @@ extension SearchDisplayController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if searchResult[indexPath.section].isSelected {
-            performSegue(withIdentifier: "GoToStudy", sender: nil)
+            performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath))
         }
         else {
             let alert = UIAlertController(title: nil, message: "是否将\(searchResult[indexPath.section].name)课程加入学习？", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: { action in self.addAndStudy(index: indexPath.section) }))
+            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: { action in self.addAndStudy(indexPath: indexPath) }))
             alert.addAction(UIAlertAction(title: "取消", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
     
-    private func addAndStudy(index: Int) {
-        courseModel!.select(course: searchResult[index])
-        searchResult[index].isSelected = true
-        performSegue(withIdentifier: "GoToStudy", sender: nil)
+    private func addAndStudy(indexPath: IndexPath) {
+        courseModel!.select(course: searchResult[indexPath.section])
+        searchResult[indexPath.section].isSelected = true
+        performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath))
     }
 }

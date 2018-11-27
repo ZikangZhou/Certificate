@@ -24,7 +24,6 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         loadCoursesOfSubject(subject: subject)
         title = subject
-        //self.tabBarController?.tabBar.isHidden = true
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.rowHeight = 80
         tableView.reloadData()
@@ -35,6 +34,10 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         backBarButtonItem.title = "返回"
         backBarButtonItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.navigationItem.backBarButtonItem = backBarButtonItem
+        if let vc = segue.destination as? StudyViewController, let cell = sender as? UITableViewCell {
+            vc.courseModel = courseModel
+            vc.courseName = cell.textLabel!.text
+        }
     }
     
     // MARK: - Table view data source
@@ -73,11 +76,11 @@ class CoursesOfSubjectTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if coursesOfSubject[indexPath.section].isSelected {
-            performSegue(withIdentifier: "GoToStudy", sender: nil)
+            performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath))
         }
         else {
             let alert = UIAlertController(title: nil, message: "是否将\(coursesOfSubject[indexPath.section].name)课程加入学习？", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: { action in self.addAndStudy(index: indexPath.section) }))
+            alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: { action in self.addAndStudy(indexPath: indexPath) }))
             alert.addAction(UIAlertAction(title: "取消", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -98,10 +101,10 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         }
     }
     
-    private func addAndStudy(index: Int) {
-        courseModel!.select(course: coursesOfSubject[index])
-        coursesOfSubject[index].isSelected = true
-        performSegue(withIdentifier: "GoToStudy", sender: nil)
+    private func addAndStudy(indexPath: IndexPath) {
+        courseModel!.select(course: coursesOfSubject[indexPath.section])
+        coursesOfSubject[indexPath.section].isSelected = true
+        performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath))
     }
     /*
     // Override to support conditional editing of the table view.

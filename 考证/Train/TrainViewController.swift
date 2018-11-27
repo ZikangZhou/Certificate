@@ -41,6 +41,11 @@ class TrainViewController: UIViewController {
                 if let vc = segue.destination as? SearchDisplayController {
                     vc.courseModel = courseModel
                 }
+            case "GoToStudy":
+                if let vc = segue.destination as? StudyViewController, let cell = sender as? CourseTableViewCell {
+                    vc.courseModel = courseModel
+                    vc.courseName = cell.nameLabel.text
+                }
             default:
                 break
             }
@@ -124,7 +129,7 @@ extension TrainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "GoToStudy", sender: nil)
+        performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath) as? CourseTableViewCell)
     }
 }
 

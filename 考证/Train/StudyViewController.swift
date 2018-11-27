@@ -13,13 +13,31 @@ class StudyViewController: UIViewController {
     @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var entranceCollectionView: UICollectionView!
     
-    private let entranceName = ["报考指南","官网入口", "学习", "题库", "学习闹钟", "成绩查询"]
+    var courseModel: CourseModel?
+    var courseName: String?
+    private let entranceName = ["报考指南", "官网入口", "学习", "题库", "学习闹钟", "成绩查询"]
+    private let hourData = Array(1...12)
+    private let minuteData = Array(0...59)
+    private lazy var minuteMiddle = 50 * minuteData.count
+    private lazy var hourMiddle = 50 * hourData.count
+    var actionSheet: UIAlertController?
+    var isPm = 1
+    var hour = 8
+    var minute = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.tabBarController?.tabBar.isHidden = true
+        title = courseName
+    }
+    
+    @objc func saveTime(sender: UIButton) {
+        self.actionSheet?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func cancelSelection(sender: UIButton) {
+        self.actionSheet?.dismiss(animated: true, completion: nil)
     }
 
     /*
@@ -50,13 +68,41 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
         cell.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         cell.layer.borderWidth = 1
-        cell.layer.cornerRadius = 8
         cell.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         cell.layer.shadowOffset = CGSize(width: 3, height: 3)
         cell.layer.shadowOpacity = 0.7
         cell.layer.shadowRadius = 4.0
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? EntranceCollectionViewCell
+        switch cell?.nameLabel.text {
+        case "学习闹钟":
+            actionSheet = UIAlertController(title: "设置提醒时间", message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
+            actionSheet!.popoverPresentationController?.sourceView = collectionView
+            actionSheet!.popoverPresentationController?.sourceRect = collectionView.bounds
+            let timePicker = UIPickerView(frame: CGRect(x: 17, y: 52, width: 270, height: 100))
+            timePicker.delegate = self
+            timePicker.dataSource = self
+            timePicker.selectRow(rowForValueOfHour(value: hour)!, inComponent: 1, animated: true)
+            timePicker.selectRow(rowForValueOfMinute(value: minute)!, inComponent: 2, animated: true)
+            actionSheet!.view.addSubview(timePicker)
+            let toolView = UIView(frame: CGRect(x: 17, y: 5, width: 270, height: 45))
+            let okButton = UIButton(frame: CGRect(x: 170, y: 7, width: 100, height: 30))
+            okButton.setTitle("确定", for: UIControl.State.normal)
+            okButton.addTarget(self, action: #selector(saveTime(sender:)), for: UIControl.Event.touchUpInside)
+            toolView.addSubview(okButton)
+            let cancelButton = UIButton(frame: CGRect(x: 0, y: 7, width: 100, height: 30))
+            cancelButton.setTitle("取消", for: UIControl.State.normal)
+            cancelButton.addTarget(self, action: #selector(cancelSelection(sender:)), for: UIControl.Event.touchUpInside)
+            toolView.addSubview(cancelButton)
+            actionSheet!.view.addSubview(toolView)
+            present(actionSheet!, animated: true, completion: nil)
+        default:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -67,5 +113,92 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    }
+}
+
+extension StudyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func valueForRowOfHour(row: Int) -> Int {
+        return hourData[row % hourData.count]
+    }
+    
+    func valueForRowOfMinute(row: Int) -> Int {
+        return minuteData[row % minuteData.count]
+    }
+    
+    func rowForValueOfHour(value: Int) -> Int? {
+        if let _ = hourData.index(of: value) {
+            return hourMiddle + value - 1
+        }
+        return nil
+    }
+    
+    func rowForValueOfMinute(value: Int) -> Int? {
+        if let _ = minuteData.index(of: value) {
+            return minuteMiddle + value
+        }
+        return nil
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch component {
+        case 0:
+            return 2
+        case 1:
+            return hourData.count * 100
+        case 2:
+            return minuteData.count * 100
+        default:
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            switch row {
+            case 0:
+                if isPm == 0 {
+                    return "上午"
+                }
+                else {
+                    return "下午"
+                }
+            case 1:
+                if isPm == 0 {
+                    return "下午"
+                }
+                else {
+                    return "上午"
+                }
+            default:
+                return nil
+            }
+        case 1:
+            return "\(valueForRowOfHour(row: row))"
+        case 2:
+            return "\(valueForRowOfMinute(row: row))"
+        default:
+            return nil
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            if row == 1 {
+                isPm = 1 - isPm
+            }
+        case 1:
+            hour = valueForRowOfHour(row: hourMiddle + (row % hourData.count))
+        case 2:
+            minute = valueForRowOfMinute(row: minuteMiddle + (row % minuteData.count))
+        default:
+            break
+        }
     }
 }
