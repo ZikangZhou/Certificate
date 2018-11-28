@@ -374,6 +374,7 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="Tqu-ju-FcN"/>
                     </view>
                     <connections>
@@ -930,7 +931,7 @@
         <image name="icons8-plus-100" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="slc-vo-muY"/>
+        <segue reference="QMQ-Wv-THZ"/>
         <segue reference="Twf-hl-6P7"/>
         <segue reference="Um3-x1-cIe"/>
     </inferredMetricsTieBreakers>

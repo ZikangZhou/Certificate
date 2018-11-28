@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class StudyViewController: UIViewController {
 
@@ -20,7 +21,7 @@ class StudyViewController: UIViewController {
     private let minuteData = Array(0...59)
     private lazy var minuteMiddle = 50 * minuteData.count
     private lazy var hourMiddle = 50 * hourData.count
-    var actionSheet: UIAlertController?
+    var alertSheet: UIAlertController?
     var isPm = 1
     var hour = 8
     var minute = 0
@@ -30,14 +31,13 @@ class StudyViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         title = courseName
+        //let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideAlertSheet))
+        //tapGestureRecognizer.cancelsTouchesInView = false
+        //self.view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    @objc func saveTime(sender: UIButton) {
-        self.actionSheet?.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func cancelSelection(sender: UIButton) {
-        self.actionSheet?.dismiss(animated: true, completion: nil)
+    @objc func hideAlertSheet(sender: UITapGestureRecognizer) {
+        self.alertSheet?.dismiss(animated: true, completion: nil)
     }
 
     /*
@@ -80,26 +80,19 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = collectionView.cellForItem(at: indexPath) as? EntranceCollectionViewCell
         switch cell?.nameLabel.text {
         case "学习闹钟":
-            actionSheet = UIAlertController(title: "设置提醒时间", message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
-            actionSheet!.popoverPresentationController?.sourceView = collectionView
-            actionSheet!.popoverPresentationController?.sourceRect = collectionView.bounds
-            let timePicker = UIPickerView(frame: CGRect(x: 17, y: 52, width: 270, height: 100))
+            alertSheet = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
+            alertSheet!.popoverPresentationController?.sourceView = collectionView
+            alertSheet!.popoverPresentationController?.sourceRect = collectionView.bounds
+            let timePicker = UIPickerView(frame: CGRect(x: 70, y: 30, width: 250, height: 170))
             timePicker.delegate = self
             timePicker.dataSource = self
             timePicker.selectRow(rowForValueOfHour(value: hour)!, inComponent: 1, animated: true)
             timePicker.selectRow(rowForValueOfMinute(value: minute)!, inComponent: 2, animated: true)
-            actionSheet!.view.addSubview(timePicker)
-            let toolView = UIView(frame: CGRect(x: 17, y: 5, width: 270, height: 45))
-            let okButton = UIButton(frame: CGRect(x: 170, y: 7, width: 100, height: 30))
-            okButton.setTitle("确定", for: UIControl.State.normal)
-            okButton.addTarget(self, action: #selector(saveTime(sender:)), for: UIControl.Event.touchUpInside)
-            toolView.addSubview(okButton)
-            let cancelButton = UIButton(frame: CGRect(x: 0, y: 7, width: 100, height: 30))
-            cancelButton.setTitle("取消", for: UIControl.State.normal)
-            cancelButton.addTarget(self, action: #selector(cancelSelection(sender:)), for: UIControl.Event.touchUpInside)
-            toolView.addSubview(cancelButton)
-            actionSheet!.view.addSubview(toolView)
-            present(actionSheet!, animated: true, completion: nil)
+            alertSheet!.view.addSubview(timePicker)
+            present(alertSheet!, animated: true) {
+                self.alertSheet!.view.superview?.subviews[0].isUserInteractionEnabled = true
+                self.alertSheet!.view.superview?.subviews[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hideAlertSheet)))
+            }
         default:
             break
         }
@@ -199,6 +192,31 @@ extension StudyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             minute = valueForRowOfMinute(row: minuteMiddle + (row % minuteData.count))
         default:
             break
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "考证"
+        content.body = "小证来提醒您学习\(title!)啦，快来领取今天的任务吧！"
+        if content.badge == nil {
+            content.badge = 1
+        }
+        else {
+            content.badge = content.badge!.intValue + 1 as NSNumber
+        }
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        dateComponents.hour = hour + isPm * 12
+        if dateComponents.hour == 24 {
+            dateComponents.hour = 0
+        }
+        dateComponents.minute = minute
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: title!, content: content, trigger: trigger)
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request) { (error) in
+            if error != nil {
+                // Handle any errors.
+            }
         }
     }
 }
