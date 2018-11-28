@@ -11,6 +11,7 @@ import Foundation
 class UserInfoModel {
     
     private(set) var userInfo: Set<UserInfo> = Set<UserInfo>()
+    var loginID: UUID?
     
     init() { }
     
@@ -117,6 +118,7 @@ class UserInfoModel {
     func passwordCorrect(name: String?, password: String?) -> Bool {
         for user in userInfo {
             if (user.phone == name || user.email == name) && user.password == password {
+                loginID = user.id
                 return true
             }
         }

@@ -15,6 +15,7 @@ class TrainViewController: UIViewController {
     @IBOutlet private weak var subjectCollectionView: UICollectionView!
     @IBOutlet weak var trainScrollView: UIScrollView!
     var courseModel = CourseModel()
+    var userInfoModel: UserInfoModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +36,18 @@ class TrainViewController: UIViewController {
             case "showCoursesTable":
                 if let vc = segue.destination as? CoursesOfSubjectTableViewController, let cell = sender as? SubjectCollectionViewCell {
                     vc.courseModel = courseModel
+                    vc.userInfoModel = userInfoModel
                     vc.subject = cell.nameLabel.text
                 }
             case "SearchDisplay":
                 if let vc = segue.destination as? SearchDisplayController {
                     vc.courseModel = courseModel
+                    vc.userInfoModel = userInfoModel
                 }
             case "GoToStudy":
                 if let vc = segue.destination as? StudyViewController, let cell = sender as? CourseTableViewCell {
                     vc.courseModel = courseModel
+                    vc.userInfoModel = userInfoModel
                     vc.courseName = cell.nameLabel.text
                 }
             default:

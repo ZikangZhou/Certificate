@@ -9,7 +9,9 @@
 import UIKit
 
 class MainViewController: UITabBarController {
-
+    
+    var userInfoModel: UserInfoModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,15 +23,16 @@ class MainViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? TrainNavigationController {
+            vc.userInfoModel = userInfoModel
+        }
+        else if let vc = segue.destination as? ExploreNavigationController {
+            vc.userInfoModel = userInfoModel
+        }
+        else if let vc = segue.destination as? UserNavigationController {
+            vc.userInfoModel = userInfoModel
+        }
     }
-    */
 
 }

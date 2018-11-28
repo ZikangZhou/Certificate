@@ -11,5 +11,4 @@ import UIKit
 class SubjectCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
-    
 }

@@ -11,6 +11,7 @@ import UIKit
 class CoursesOfSubjectTableViewController: UITableViewController {
 
     var courseModel: CourseModel?
+    var userInfoModel: UserInfoModel?
     var subject: String?
     var coursesOfSubject = [Course]()
     
@@ -36,6 +37,7 @@ class CoursesOfSubjectTableViewController: UITableViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
         if let vc = segue.destination as? StudyViewController, let cell = sender as? UITableViewCell {
             vc.courseModel = courseModel
+            vc.userInfoModel = userInfoModel
             vc.courseName = cell.textLabel!.text
         }
     }

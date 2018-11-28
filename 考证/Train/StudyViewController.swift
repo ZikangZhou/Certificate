@@ -15,6 +15,7 @@ class StudyViewController: UIViewController {
     @IBOutlet weak var entranceCollectionView: UICollectionView!
     
     var courseModel: CourseModel?
+    var userInfoModel: UserInfoModel?
     var courseName: String?
     private let entranceName = ["报考指南", "官网入口", "学习", "题库", "学习闹钟", "成绩查询"]
     private let hourData = Array(1...12)

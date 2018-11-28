@@ -25,7 +25,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, TimerDelegate 
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "loginSuccessfully" {
+        if segue.identifier == "loginSuccessfully", let vc = segue.destination as? MainViewController {
+            vc.userInfoModel = userInfoModel
             return
         }
         if let identifier = segue.identifier, let vc = segue.destination as? LoginOptionViewController {

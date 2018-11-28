@@ -72,6 +72,10 @@ class LoginOptionViewController: UIViewController {
                     vc.phone = phoneTextField.text
                     vc.userInfoModel = userInfoModel
                 }
+            case "loginWithTextMessageSuccessfully":
+                if let vc = segue.destination as? MainViewController {
+                    vc.userInfoModel = userInfoModel
+                }
             default:
                 break
             }
@@ -204,6 +208,7 @@ class LoginOptionViewController: UIViewController {
                         self.performSegue(withIdentifier: "enterPassword", sender: nil)
                     }
                     else {
+                        self.userInfoModel?.loginID = self.userInfoModel?.getUser(withPhone: phone)?.id
                         self.performSegue(withIdentifier: "loginWithTextMessageSuccessfully", sender: nil)
                     }
                 }

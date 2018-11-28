@@ -15,6 +15,7 @@ class SearchDisplayController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var courseModel: CourseModel?
+    var userInfoModel: UserInfoModel?
     var searchResult = [Course]()
     
     override func viewDidLoad() {
@@ -46,6 +47,7 @@ class SearchDisplayController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
         if let vc = segue.destination as? StudyViewController, let cell = sender as? UITableViewCell {
             vc.courseModel = courseModel
+            vc.userInfoModel = userInfoModel
             vc.courseName = cell.textLabel!.text
         }
     }

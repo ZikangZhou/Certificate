@@ -786,7 +786,7 @@
         <!--Train Navigation-->
         <scene sceneID="Vmt-mg-Ixg">
             <objects>
-                <navigationController title="Train Navigation" id="BWb-Nf-b1u" sceneMemberID="viewController">
+                <navigationController title="Train Navigation" id="BWb-Nf-b1u" customClass="TrainNavigationController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="训练营" id="gYZ-v7-2vJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="n0t-UF-28s">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -803,7 +803,7 @@
         <!--Explore Navigation-->
         <scene sceneID="fHS-7L-jii">
             <objects>
-                <navigationController title="Explore Navigation" id="TKG-pj-tna" sceneMemberID="viewController">
+                <navigationController title="Explore Navigation" id="TKG-pj-tna" customClass="ExploreNavigationController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="发现" id="3v6-rx-05J"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3UY-Op-WpX">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -823,7 +823,7 @@
         <!--User Navigation-->
         <scene sceneID="ydu-1h-19q">
             <objects>
-                <navigationController title="User Navigation" id="7em-06-2Bk" sceneMemberID="viewController">
+                <navigationController title="User Navigation" id="7em-06-2Bk" customClass="UserNavigationController" customModule="考证" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我" id="I75-Uv-YK9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GjN-XF-33Z">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

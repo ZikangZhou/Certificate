@@ -14,6 +14,7 @@ struct UserInfo {
     var phone: String? = String()
     var email: String? = String()
     var password: String? = String()
+    var alertTime = [String: DateComponents]()
     
     init(phone: String?, password: String?) {
         self.phone = phone
