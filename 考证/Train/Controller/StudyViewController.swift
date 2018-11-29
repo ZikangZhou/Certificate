@@ -14,8 +14,8 @@ class StudyViewController: UIViewController {
     @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var entranceCollectionView: UICollectionView!
     
-    var courseModel: CourseModel?
-    var userInfoModel: UserInfoModel?
+    var courseModel: CourseModel!
+    var userInfoModel: UserInfoModel!
     var courseName: String?
     private let entranceName = ["报考指南", "官网入口", "学习", "题库", "学习闹钟", "成绩查询"]
     private let hourData = Array(1...12)
@@ -23,9 +23,21 @@ class StudyViewController: UIViewController {
     private lazy var minuteMiddle = 50 * minuteData.count
     private lazy var hourMiddle = 50 * hourData.count
     var alertSheet: UIAlertController?
-    var isPm = 1
-    var hour = 8
-    var minute = 0
+    var isPm: Int! {
+        didSet {
+            setAlertTime()
+        }
+    }
+    var hour: Int! {
+        didSet {
+            setAlertTime()
+        }
+    }
+    var minute: Int! {
+        didSet {
+            setAlertTime()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +51,17 @@ class StudyViewController: UIViewController {
     
     @objc func hideAlertSheet(sender: UITapGestureRecognizer) {
         self.alertSheet?.dismiss(animated: true, completion: nil)
+    }
+    
+    private func setAlertTime() {
+        if isPm != nil && hour != nil && minute != nil {
+            if hour == 12 {
+                userInfoModel.setUser(withId: userInfoModel.loginID, alertTime: DateComponents(hour: (hour + (1 - isPm) * 12) % 24, minute: minute), course: courseName)
+            }
+            else {
+                userInfoModel.setUser(withId: userInfoModel.loginID, alertTime: DateComponents(hour: (hour + isPm * 12) % 24, minute: minute), course: courseName)
+            }
+        }
     }
 
     /*
@@ -84,6 +107,11 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
             alertSheet = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
             alertSheet!.popoverPresentationController?.sourceView = collectionView
             alertSheet!.popoverPresentationController?.sourceRect = collectionView.bounds
+            let attributedString = NSAttributedString(string: "设置提醒时间", attributes: [
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
+                NSAttributedString.Key.foregroundColor : UIColor.black])
+            alertSheet!.setValue(attributedString, forKey: "attributedTitle")
+            alertSheet!.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.white
             let timePicker = UIPickerView(frame: CGRect(x: 70, y: 30, width: 250, height: 170))
             timePicker.delegate = self
             timePicker.dataSource = self
@@ -175,7 +203,11 @@ extension StudyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         case 1:
             return "\(valueForRowOfHour(row: row))"
         case 2:
-            return "\(valueForRowOfMinute(row: row))"
+            var title = "\(valueForRowOfMinute(row: row))"
+            if title.count == 1 {
+                title = "0" + title
+            }
+            return title
         default:
             return nil
         }
@@ -206,9 +238,11 @@ extension StudyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         }
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
-        dateComponents.hour = hour + isPm * 12
-        if dateComponents.hour == 24 {
-            dateComponents.hour = 0
+        if hour == 12 {
+            dateComponents.hour = (hour + (1 - isPm) * 12) % 24
+        }
+        else {
+            dateComponents.hour = (hour + isPm * 12) % 24
         }
         dateComponents.minute = minute
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

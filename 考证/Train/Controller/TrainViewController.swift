@@ -15,7 +15,7 @@ class TrainViewController: UIViewController {
     @IBOutlet private weak var subjectCollectionView: UICollectionView!
     @IBOutlet weak var trainScrollView: UIScrollView!
     var courseModel = CourseModel()
-    var userInfoModel: UserInfoModel?
+    var userInfoModel: UserInfoModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,12 @@ class TrainViewController: UIViewController {
                     vc.courseModel = courseModel
                     vc.userInfoModel = userInfoModel
                     vc.courseName = cell.nameLabel.text
+                    vc.isPm = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) <= 11 ? 0 : 1
+                    vc.hour = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) % 12
+                    if vc.hour == 0 {
+                        vc.hour = 12
+                    }
+                    vc.minute = userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.minute ?? 0
                 }
             default:
                 break

@@ -10,18 +10,18 @@ import UIKit
 
 class TrainNavigationController: UINavigationController {
 
-    var userInfoModel: UserInfoModel?
+    var userInfoModel: UserInfoModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? TrainViewController {
+        if let vc = self.topViewController as? TrainViewController {
             vc.userInfoModel = userInfoModel
         }
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
 }

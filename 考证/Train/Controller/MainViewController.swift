@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UITabBarController {
     
-    var userInfoModel: UserInfoModel?
+    var userInfoModel: UserInfoModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,18 +21,20 @@ class MainViewController: UITabBarController {
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: unselectedColor], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)
+        
+        if let vc = self.viewControllers![0] as? TrainNavigationController {
+            vc.userInfoModel = userInfoModel
+        }
+        if let vc = self.viewControllers![1] as? ExploreNavigationController {
+            vc.userInfoModel = userInfoModel
+        }
+        if let vc = self.viewControllers![2] as? UserNavigationController {
+            vc.userInfoModel = userInfoModel
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? TrainNavigationController {
-            vc.userInfoModel = userInfoModel
-        }
-        else if let vc = segue.destination as? ExploreNavigationController {
-            vc.userInfoModel = userInfoModel
-        }
-        else if let vc = segue.destination as? UserNavigationController {
-            vc.userInfoModel = userInfoModel
-        }
+        
     }
 
 }

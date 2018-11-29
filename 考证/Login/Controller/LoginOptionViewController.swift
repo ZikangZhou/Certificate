@@ -19,7 +19,7 @@ class LoginOptionViewController: UIViewController {
     @IBOutlet weak var verificationTextField: UITextField!
     @IBOutlet weak var retrieveVerificationCodeButton: UIButton!
     
-    var userInfoModel: UserInfoModel?
+    var userInfoModel: UserInfoModel!
     var identifier: String?
     weak var timerDelegate: TimerDelegate? = nil
     var titleOfNextStepButton: String?
@@ -162,17 +162,17 @@ class LoginOptionViewController: UIViewController {
     
     @IBAction func retrieveVerificationCodeButtonPressed(_ sender: UIButton) {
         if let phone = phoneTextField.text, Int(phone) != nil, phone.count == 11 {
-            if !userInfoModel!.contains(name: phone) && identifier == "retrievePassword" {
+            if !userInfoModel.contains(name: phone) && identifier == "retrievePassword" {
                 let alert = UIAlertController(title: nil, message: "该账号尚未注册。", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
-            else if !userInfoModel!.contains(name: phone) && identifier == "loginWithTextMessage" {
+            else if !userInfoModel.contains(name: phone) && identifier == "loginWithTextMessage" {
                 let alert = UIAlertController(title: nil, message: "请先完成注册。", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
-            else if userInfoModel!.contains(name: phone) && identifier == "register" {
+            else if userInfoModel.contains(name: phone) && identifier == "register" {
                 let alert = UIAlertController(title: nil, message: "该账号已存在。", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "确定", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -208,7 +208,7 @@ class LoginOptionViewController: UIViewController {
                         self.performSegue(withIdentifier: "enterPassword", sender: nil)
                     }
                     else {
-                        self.userInfoModel?.loginID = self.userInfoModel?.getUser(withPhone: phone)?.id
+                        self.userInfoModel.loginID = self.userInfoModel.getUser(withPhone: phone)?.id
                         self.performSegue(withIdentifier: "loginWithTextMessageSuccessfully", sender: nil)
                     }
                 }

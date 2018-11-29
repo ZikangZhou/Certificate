@@ -169,14 +169,16 @@
 		050A7420219818B300D7DE89 /* 考证 */ = {
 			isa = PBXGroup;
 			children = (
-				0561B4C321A315B900959E4D /* Others */,
+				050A7430219818B600D7DE89 /* Info.plist */,
+				050A7421219818B300D7DE89 /* AppDelegate.swift */,
+				0561B4BF21A2976A00959E4D /* Notification.swift */,
+				050A742B219818B600D7DE89 /* Assets.xcassets */,
+				050A7428219818B300D7DE89 /* __.xcdatamodeld */,
+				050A742D219818B600D7DE89 /* LaunchScreen.storyboard */,
+				050A7425219818B300D7DE89 /* Main.storyboard */,
 				0561B4C121A3157900959E4D /* Login */,
 				0561B4C221A3159600959E4D /* Train */,
-				050A7425219818B300D7DE89 /* Main.storyboard */,
-				050A742D219818B600D7DE89 /* LaunchScreen.storyboard */,
-				050A742B219818B600D7DE89 /* Assets.xcassets */,
-				050A7430219818B600D7DE89 /* Info.plist */,
-				050A7428219818B300D7DE89 /* __.xcdatamodeld */,
+				05ED373D21AF928600B57F5A /* Supporting Files */,
 			);
 			path = "考证";
 			sourceTree = "<group>";
@@ -202,13 +204,9 @@
 		0561B4C121A3157900959E4D /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0561B4C621A4035600959E4D /* InitialViewController.swift */,
-				0561B4C821A403F700959E4D /* InitialPageViewController.swift */,
-				0561B4BB21A0645900959E4D /* UserInfo.swift */,
-				0561B4B921A060E200959E4D /* UserInfoModel.swift */,
-				0561B4B721A00FA700959E4D /* LoginViewController.swift */,
-				0561B4BD21A196D400959E4D /* LoginOptionViewController.swift */,
-				0561B4C421A31DE300959E4D /* EnterPasswordViewController.swift */,
+				05ED373621AF910100B57F5A /* Model */,
+				05ED373721AF910F00B57F5A /* ViewModel */,
+				05ED373821AF912C00B57F5A /* Controller */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -216,30 +214,12 @@
 		0561B4C221A3159600959E4D /* Train */ = {
 			isa = PBXGroup;
 			children = (
-				050A745E219942B500D7DE89 /* Course.swift */,
-				050DFF61219A711100925184 /* CourseModel.swift */,
-				050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */,
-				050A7452219928CA00D7DE89 /* CourseTableViewCell.swift */,
-				0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */,
-				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
-				05ED373021AEF98200B57F5A /* TrainNavigationController.swift */,
-				05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */,
-				05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */,
-				050A745A2199370000D7DE89 /* TrainViewController.swift */,
-				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
-				0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */,
-				0561B4F521AC26B400959E4D /* StudyViewController.swift */,
+				05ED373921AF91C400B57F5A /* Model */,
+				05ED373A21AF91D100B57F5A /* ViewModel */,
+				05ED373B21AF91E900B57F5A /* View */,
+				05ED373C21AF91F900B57F5A /* Controller */,
 			);
 			path = Train;
-			sourceTree = "<group>";
-		};
-		0561B4C321A315B900959E4D /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				050A7421219818B300D7DE89 /* AppDelegate.swift */,
-				0561B4BF21A2976A00959E4D /* Notification.swift */,
-			);
-			path = Others;
 			sourceTree = "<group>";
 		};
 		0561B4DE21A6996B00959E4D /* SDK */ = {
@@ -278,6 +258,82 @@
 				0561B4E921A69B0C00959E4D /* libz.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		05ED373621AF910100B57F5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4BB21A0645900959E4D /* UserInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		05ED373721AF910F00B57F5A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4B921A060E200959E4D /* UserInfoModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		05ED373821AF912C00B57F5A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4C621A4035600959E4D /* InitialViewController.swift */,
+				0561B4C821A403F700959E4D /* InitialPageViewController.swift */,
+				0561B4B721A00FA700959E4D /* LoginViewController.swift */,
+				0561B4BD21A196D400959E4D /* LoginOptionViewController.swift */,
+				0561B4C421A31DE300959E4D /* EnterPasswordViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		05ED373921AF91C400B57F5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				050A745E219942B500D7DE89 /* Course.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		05ED373A21AF91D100B57F5A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				050DFF61219A711100925184 /* CourseModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		05ED373B21AF91E900B57F5A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				050DFF65219BD1B700925184 /* SubjectCollectionViewCell.swift */,
+				050A7452219928CA00D7DE89 /* CourseTableViewCell.swift */,
+				0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		05ED373C21AF91F900B57F5A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
+				05ED373021AEF98200B57F5A /* TrainNavigationController.swift */,
+				05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */,
+				05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */,
+				050A745A2199370000D7DE89 /* TrainViewController.swift */,
+				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
+				0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */,
+				0561B4F521AC26B400959E4D /* StudyViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		05ED373D21AF928600B57F5A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

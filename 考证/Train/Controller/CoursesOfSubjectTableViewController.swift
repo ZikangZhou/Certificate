@@ -10,8 +10,8 @@ import UIKit
 
 class CoursesOfSubjectTableViewController: UITableViewController {
 
-    var courseModel: CourseModel?
-    var userInfoModel: UserInfoModel?
+    var courseModel: CourseModel!
+    var userInfoModel: UserInfoModel!
     var subject: String?
     var coursesOfSubject = [Course]()
     
@@ -39,6 +39,12 @@ class CoursesOfSubjectTableViewController: UITableViewController {
             vc.courseModel = courseModel
             vc.userInfoModel = userInfoModel
             vc.courseName = cell.textLabel!.text
+            vc.isPm = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) <= 11 ? 0 : 1
+            vc.hour = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) % 12
+            if vc.hour == 0 {
+                vc.hour = 12
+            }
+            vc.minute = userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.minute ?? 0
         }
     }
     
@@ -46,10 +52,10 @@ class CoursesOfSubjectTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if subject == "更多" {
-            return courseModel?.count ?? 0
+            return courseModel.count
         }
         else {
-            return courseModel?.coursesOfSubjectCount(subject: subject) ?? 0
+            return courseModel.coursesOfSubjectCount(subject: subject)
         }
     }
 
@@ -90,21 +96,21 @@ class CoursesOfSubjectTableViewController: UITableViewController {
     
     private func loadCoursesOfSubject(subject: String?) {
         if subject == "更多" {
-            for index in 0..<courseModel!.count {
-                coursesOfSubject.append(courseModel!.course(at: index))
+            for index in 0..<courseModel.count {
+                coursesOfSubject.append(courseModel.course(at: index))
             }
         }
         else {
-            for index in 0..<courseModel!.count {
-                if courseModel!.course(at: index).subject == subject {
-                    coursesOfSubject.append(courseModel!.course(at: index))
+            for index in 0..<courseModel.count {
+                if courseModel.course(at: index).subject == subject {
+                    coursesOfSubject.append(courseModel.course(at: index))
                 }
             }
         }
     }
     
     private func addAndStudy(indexPath: IndexPath) {
-        courseModel!.select(course: coursesOfSubject[indexPath.section])
+        courseModel.select(course: coursesOfSubject[indexPath.section])
         coursesOfSubject[indexPath.section].isSelected = true
         performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath))
     }

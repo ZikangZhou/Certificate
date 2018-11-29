@@ -10,7 +10,7 @@ import UIKit
 
 class EnterPasswordViewController: UIViewController, UITextFieldDelegate {
 
-    var userInfoModel: UserInfoModel?
+    var userInfoModel: UserInfoModel!
     var identifier: String?
     var phone: String?
     @IBOutlet weak var passwordTextField: UITextField!
@@ -44,17 +44,17 @@ class EnterPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
         if identifier == "retrievePassword" {
-            for user in userInfoModel!.userInfo {
+            for user in userInfoModel.userInfo {
                 if user.phone == phone {
-                    userInfoModel?.setUser(withId: user.id, newPassword: passwordTextField.text)
-                    userInfoModel?.loginID = user.id
+                    userInfoModel.setUser(withId: user.id, newPassword: passwordTextField.text)
+                    userInfoModel.loginID = user.id
                 }
             }
         }
         else if identifier == "register" {
             let user = UserInfo(phone: phone, password: passwordTextField.text)
-            userInfoModel?.addUser(user: user)
-            userInfoModel?.loginID = user.id
+            userInfoModel.addUser(user: user)
+            userInfoModel.loginID = user.id
         }
     }
     

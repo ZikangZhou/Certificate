@@ -14,8 +14,8 @@ class SearchDisplayController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var courseModel: CourseModel?
-    var userInfoModel: UserInfoModel?
+    var courseModel: CourseModel!
+    var userInfoModel: UserInfoModel!
     var searchResult = [Course]()
     
     override func viewDidLoad() {
@@ -49,6 +49,12 @@ class SearchDisplayController: UIViewController {
             vc.courseModel = courseModel
             vc.userInfoModel = userInfoModel
             vc.courseName = cell.textLabel!.text
+            vc.isPm = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) <= 11 ? 0 : 1
+            vc.hour = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) % 12
+            if vc.hour == 0 {
+                vc.hour = 12
+            }
+            vc.minute = userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.minute ?? 0
         }
     }
 
@@ -67,10 +73,10 @@ extension SearchDisplayController: UISearchBarDelegate {
     }
     
     private func search(searchText: String) {
-        for index in 0..<courseModel!.count {
-            for ch in courseModel!.course(at: index).name {
+        for index in 0..<courseModel.count {
+            for ch in courseModel.course(at: index).name {
                 if searchText.contains(ch) {
-                    searchResult.append(courseModel!.course(at: index))
+                    searchResult.append(courseModel.course(at: index))
                     break
                 }
             }
@@ -110,7 +116,7 @@ extension SearchDisplayController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func addAndStudy(indexPath: IndexPath) {
-        courseModel!.select(course: searchResult[indexPath.section])
+        courseModel.select(course: searchResult[indexPath.section])
         searchResult[indexPath.section].isSelected = true
         performSegue(withIdentifier: "GoToStudy", sender: tableView.cellForRow(at: indexPath))
     }

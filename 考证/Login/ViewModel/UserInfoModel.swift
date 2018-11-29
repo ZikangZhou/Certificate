@@ -43,7 +43,7 @@ class UserInfoModel {
         }
     }
     
-    func setUser(withId id: UUID, newPhone phone: String?) {
+    func setUser(withId id: UUID!, newPhone phone: String?) {
         for user in userInfo {
             if user.id == id {
                 var tmp = user
@@ -55,7 +55,7 @@ class UserInfoModel {
         }
     }
     
-    func setUser(withId id: UUID, newEmail email: String?) {
+    func setUser(withId id: UUID!, newEmail email: String?) {
         for user in userInfo {
             if user.id == id {
                 var tmp = user
@@ -67,11 +67,23 @@ class UserInfoModel {
         }
     }
     
-    func setUser(withId id: UUID, newPassword password: String?) {
+    func setUser(withId id: UUID!, newPassword password: String?) {
         for user in userInfo {
             if user.id == id {
                 var tmp = user
                 tmp.setPassword(withPassword: password)
+                removeUser(withId: id)
+                addUser(user: tmp)
+                return
+            }
+        }
+    }
+    
+    func setUser(withId id: UUID!, alertTime: DateComponents, course: String?) {
+        for user in userInfo {
+            if user.id == id {
+                var tmp = user
+                tmp.setAlertTime(course: course, alertTime: alertTime)
                 removeUser(withId: id)
                 addUser(user: tmp)
                 return

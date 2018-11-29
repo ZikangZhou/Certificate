@@ -1,5 +1,5 @@
 //
-//  ExploreController.swift
+//  UserNavigationController.swift
 //  考证
 //
 //  Created by 周梓康 on 2018/11/29.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ExploreNavigationController: UINavigationController {
+class UserNavigationController: UINavigationController {
 
-    var userInfoModel: UserInfoModel?
+    var userInfoModel: UserInfoModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
