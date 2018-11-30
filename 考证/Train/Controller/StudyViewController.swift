@@ -122,6 +122,8 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 self.alertSheet!.view.superview?.subviews[0].isUserInteractionEnabled = true
                 self.alertSheet!.view.superview?.subviews[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hideAlertSheet)))
             }
+        case "官网入口":
+            performSegue(withIdentifier: "GoToOfficialWebsite", sender: nil)
         default:
             break
         }
