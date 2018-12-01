@@ -91,6 +91,18 @@ class UserInfoModel {
         }
     }
     
+    func setUser(withId id: UUID!, examTime: DateComponents, course: String?) {
+        for user in userInfo {
+            if user.id == id {
+                var tmp = user
+                tmp.setExamTime(course: course, examTime: examTime)
+                removeUser(withId: id)
+                addUser(user: tmp)
+                return
+            }
+        }
+    }
+    
     func getUser(withId id: UUID) -> UserInfo? {
         for user in userInfo {
             if user.id == id {

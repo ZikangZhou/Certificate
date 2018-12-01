@@ -11,57 +11,84 @@ import UserNotifications
 
 class StudyViewController: UIViewController {
 
-    @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var entranceCollectionView: UICollectionView!
-    
+    @IBOutlet weak var examTimeLabel: UILabel!
+    @IBOutlet weak var countDownDayLabel: UILabel!
+    var pickAlert: UIAlertController!
+    var datePicker: UIDatePicker!
     var courseModel: CourseModel!
     var userInfoModel: UserInfoModel!
     var courseName: String?
     private let entranceName = ["报考指南", "官网入口", "学习", "题库", "学习闹钟", "成绩查询"]
-    private let hourData = Array(1...12)
-    private let minuteData = Array(0...59)
-    private lazy var minuteMiddle = 50 * minuteData.count
-    private lazy var hourMiddle = 50 * hourData.count
-    var alertSheet: UIAlertController?
-    var isPm: Int! {
-        didSet {
-            setAlertTime()
-        }
-    }
-    var hour: Int! {
-        didSet {
-            setAlertTime()
-        }
-    }
-    var minute: Int! {
-        didSet {
-            setAlertTime()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         title = courseName
-        //let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideAlertSheet))
-        //tapGestureRecognizer.cancelsTouchesInView = false
-        //self.view.addGestureRecognizer(tapGestureRecognizer)
+        var dateComponent = userInfoModel.getUser(withId: userInfoModel.loginID!)!.examTime[courseName]
+        if dateComponent == nil {
+            dateComponent = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+            userInfoModel.setUser(withId: userInfoModel.loginID!, examTime: dateComponent!, course: courseName)
+        }
+        examTimeLabel.text = "目标日：\(dateComponent!.year ?? 0)-\(dateComponent!.month ?? 0)-\(dateComponent!.day ?? 0)"
+        countDownDayLabel.text = "\(Calendar.current.dateComponents([.day], from: Date(), to: Calendar.current.date(from: dateComponent!)!).day ?? 0)"
     }
     
-    @objc func hideAlertSheet(sender: UITapGestureRecognizer) {
-        self.alertSheet?.dismiss(animated: true, completion: nil)
+    @IBAction func editExamTimeButtonPressed(_ sender: UIButton) {
+        pickAlert = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.alert)
+        let attributedString = NSAttributedString(string: "设置考试日期", attributes: [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
+            NSAttributedString.Key.foregroundColor : UIColor.black])
+        pickAlert.setValue(attributedString, forKey: "attributedTitle")
+        pickAlert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.white
+        datePicker = UIDatePicker(frame: CGRect(x: 17, y: 30, width: 250, height: 170))
+        datePicker.addTarget(self, action: #selector(dateDidChange), for: .valueChanged)
+        datePicker.datePickerMode = .date
+        datePicker.setDate((Calendar.current.date(from: userInfoModel.getUser(withId: userInfoModel.loginID!)?.examTime[courseName] ?? Calendar.current.dateComponents([.year, .month, .day], from: Date()))!), animated: true)
+        datePicker.minimumDate = Date()
+        datePicker.maximumDate = Date() + (20 * 365 * 24 * 60 * 60)
+        pickAlert.view.addSubview(datePicker)
+        present(pickAlert, animated: true) {
+            self.pickAlert.view.superview?.subviews[0].isUserInteractionEnabled = true
+            self.pickAlert.view.superview?.subviews[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hidePickAlert)))
+        }
     }
     
-    private func setAlertTime() {
-        if isPm != nil && hour != nil && minute != nil {
-            if hour == 12 {
-                userInfoModel.setUser(withId: userInfoModel.loginID, alertTime: DateComponents(hour: (hour + (1 - isPm) * 12) % 24, minute: minute), course: courseName)
+    @objc func dateDidChange(_ sender: UIDatePicker) {
+        if datePicker.datePickerMode == .time {
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.hour, .minute], from: datePicker.date)
+            userInfoModel.setUser(withId: userInfoModel.loginID, alertTime: dateComponents, course: courseName)
+            
+            let content = UNMutableNotificationContent()
+            content.title = "考证"
+            content.body = "小证来提醒您学习\(courseName!)啦，快来领取今天的任务吧！"
+            if content.badge == nil {
+                content.badge = 1
             }
             else {
-                userInfoModel.setUser(withId: userInfoModel.loginID, alertTime: DateComponents(hour: (hour + isPm * 12) % 24, minute: minute), course: courseName)
+                content.badge = content.badge!.intValue + 1 as NSNumber
+            }
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            let request = UNNotificationRequest(identifier: courseName!, content: content, trigger: trigger)
+            let notificationCenter = UNUserNotificationCenter.current()
+            notificationCenter.add(request) { (error) in
+                if error != nil {
+                    // Handle any errors.
+                }
             }
         }
+        else if datePicker.datePickerMode == .date {
+            userInfoModel.setUser(withId: userInfoModel.loginID!, examTime: Calendar.current.dateComponents([.year, .month, .day], from: datePicker.date), course: courseName)
+            let dateComponent = userInfoModel.getUser(withId: userInfoModel.loginID!)!.examTime[courseName]
+            examTimeLabel.text = "目标日：\(dateComponent!.year ?? 0)-\(dateComponent!.month ?? 0)-\(dateComponent!.day ?? 0)"
+            countDownDayLabel.text = "\(Calendar.current.dateComponents([.day], from: Date(), to: Calendar.current.date(from: dateComponent!)!).day ?? 0)"
+        }
+    }
+    
+    @objc func hidePickAlert(sender: UITapGestureRecognizer) {
+        self.pickAlert.dismiss(animated: true, completion: nil)
     }
 
     /*
@@ -104,24 +131,24 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = collectionView.cellForItem(at: indexPath) as? EntranceCollectionViewCell
         switch cell?.nameLabel.text {
         case "学习闹钟":
-            alertSheet = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
-            alertSheet!.popoverPresentationController?.sourceView = collectionView
-            alertSheet!.popoverPresentationController?.sourceRect = collectionView.bounds
+            pickAlert = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
+            pickAlert.popoverPresentationController?.sourceView = collectionView
+            pickAlert.popoverPresentationController?.sourceRect = collectionView.bounds
             let attributedString = NSAttributedString(string: "设置提醒时间", attributes: [
                 NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
                 NSAttributedString.Key.foregroundColor : UIColor.black])
-            alertSheet!.setValue(attributedString, forKey: "attributedTitle")
-            alertSheet!.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.white
-            let timePicker = UIPickerView(frame: CGRect(x: 70, y: 30, width: 250, height: 170))
-            timePicker.delegate = self
-            timePicker.dataSource = self
-            timePicker.selectRow(rowForValueOfHour(value: hour)!, inComponent: 1, animated: true)
-            timePicker.selectRow(rowForValueOfMinute(value: minute)!, inComponent: 2, animated: true)
-            alertSheet!.view.addSubview(timePicker)
-            present(alertSheet!, animated: true) {
-                self.alertSheet!.view.superview?.subviews[0].isUserInteractionEnabled = true
-                self.alertSheet!.view.superview?.subviews[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hideAlertSheet)))
+            pickAlert.setValue(attributedString, forKey: "attributedTitle")
+            pickAlert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.white
+            datePicker = UIDatePicker(frame: CGRect(x: 70, y: 30, width: 250, height: 170))
+            datePicker.addTarget(self, action: #selector(dateDidChange), for: .valueChanged)
+            datePicker.datePickerMode = .time
+            datePicker.setDate((Calendar.current.date(from: userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[courseName] ?? DateComponents(hour:20, minute: 0))!), animated: true)
+            pickAlert.view.addSubview(datePicker)
+            present(pickAlert, animated: true) {
+                self.pickAlert.view.superview?.subviews[0].isUserInteractionEnabled = true
+                self.pickAlert.view.superview?.subviews[0].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hidePickAlert)))
             }
+            
         case "官网入口":
             performSegue(withIdentifier: "GoToOfficialWebsite", sender: nil)
         default:
@@ -137,123 +164,5 @@ extension StudyViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-    }
-}
-
-extension StudyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    func valueForRowOfHour(row: Int) -> Int {
-        return hourData[row % hourData.count]
-    }
-    
-    func valueForRowOfMinute(row: Int) -> Int {
-        return minuteData[row % minuteData.count]
-    }
-    
-    func rowForValueOfHour(value: Int) -> Int? {
-        if let _ = hourData.index(of: value) {
-            return hourMiddle + value - 1
-        }
-        return nil
-    }
-    
-    func rowForValueOfMinute(value: Int) -> Int? {
-        if let _ = minuteData.index(of: value) {
-            return minuteMiddle + value
-        }
-        return nil
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return 2
-        case 1:
-            return hourData.count * 100
-        case 2:
-            return minuteData.count * 100
-        default:
-            return 0
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch component {
-        case 0:
-            switch row {
-            case 0:
-                if isPm == 0 {
-                    return "上午"
-                }
-                else {
-                    return "下午"
-                }
-            case 1:
-                if isPm == 0 {
-                    return "下午"
-                }
-                else {
-                    return "上午"
-                }
-            default:
-                return nil
-            }
-        case 1:
-            return "\(valueForRowOfHour(row: row))"
-        case 2:
-            var title = "\(valueForRowOfMinute(row: row))"
-            if title.count == 1 {
-                title = "0" + title
-            }
-            return title
-        default:
-            return nil
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch component {
-        case 0:
-            if row == 1 {
-                isPm = 1 - isPm
-            }
-        case 1:
-            hour = valueForRowOfHour(row: hourMiddle + (row % hourData.count))
-        case 2:
-            minute = valueForRowOfMinute(row: minuteMiddle + (row % minuteData.count))
-        default:
-            break
-        }
-        
-        let content = UNMutableNotificationContent()
-        content.title = "考证"
-        content.body = "小证来提醒您学习\(title!)啦，快来领取今天的任务吧！"
-        if content.badge == nil {
-            content.badge = 1
-        }
-        else {
-            content.badge = content.badge!.intValue + 1 as NSNumber
-        }
-        var dateComponents = DateComponents()
-        dateComponents.calendar = Calendar.current
-        if hour == 12 {
-            dateComponents.hour = (hour + (1 - isPm) * 12) % 24
-        }
-        else {
-            dateComponents.hour = (hour + isPm * 12) % 24
-        }
-        dateComponents.minute = minute
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: title!, content: content, trigger: trigger)
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.add(request) { (error) in
-            if error != nil {
-                // Handle any errors.
-            }
-        }
     }
 }

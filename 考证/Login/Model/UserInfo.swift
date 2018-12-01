@@ -15,6 +15,7 @@ struct UserInfo {
     var email: String? = String()
     var password: String? = String()
     var alertTime = [String?: DateComponents]()
+    var examTime = [String?: DateComponents]()
     
     init(phone: String?, password: String?) {
         self.phone = phone
@@ -41,6 +42,10 @@ struct UserInfo {
     
     mutating func setAlertTime(course: String?, alertTime: DateComponents) {
         self.alertTime[course] = alertTime
+    }
+    
+    mutating func setExamTime(course: String?, examTime: DateComponents) {
+        self.examTime[course] = examTime
     }
 }
 

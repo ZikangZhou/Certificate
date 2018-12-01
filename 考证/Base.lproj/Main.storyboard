@@ -369,9 +369,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="43" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C83-Yi-F1r">
-                                        <rect key="frame" x="196" y="8" width="168" height="168"/>
+                                        <rect key="frame" x="176" y="8" width="198" height="168"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="90"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="78"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -382,15 +382,23 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="目标日：2018-12-31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boe-2x-La9">
-                                        <rect key="frame" x="8" y="120" width="180" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="目标日:2018-12-31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boe-2x-La9">
+                                        <rect key="frame" x="8" y="120" width="169" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eo1-5x-mFN">
+                                        <rect key="frame" x="176" y="120" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="icons8-编辑-100"/>
+                                        <connections>
+                                            <action selector="editExamTimeButtonPressed:" destination="R62-jK-StA" eventType="touchUpInside" id="zNd-Va-2Gt"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="天" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEx-hI-7NJ">
-                                        <rect key="frame" x="344" y="82" width="18" height="21"/>
+                                        <rect key="frame" x="356" y="82" width="18" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -405,7 +413,9 @@
                         <viewLayoutGuide key="safeArea" id="Tqu-ju-FcN"/>
                     </view>
                     <connections>
+                        <outlet property="countDownDayLabel" destination="C83-Yi-F1r" id="mhO-r8-caj"/>
                         <outlet property="entranceCollectionView" destination="eDA-Rg-pz4" id="35B-Nl-rl9"/>
+                        <outlet property="examTimeLabel" destination="boe-2x-La9" id="mp9-vp-YWm"/>
                         <segue destination="evk-hS-vjr" kind="show" identifier="GoToOfficialWebsite" id="P5x-Zm-Qqq"/>
                     </connections>
                 </viewController>
@@ -1019,6 +1029,7 @@
     <resources>
         <image name="SAC" width="176" height="140"/>
         <image name="icons8-plus-100" width="37.5" height="37.5"/>
+        <image name="icons8-编辑-100" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="slc-vo-muY"/>

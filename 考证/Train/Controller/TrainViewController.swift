@@ -24,7 +24,7 @@ class TrainViewController: UIViewController {
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //self.navigationItem.rightBarButtonItem = self.editButtonItem
         courseTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         NotificationCenter.default.addObserver(self, selector: #selector(coursesDidChange), name: .CourseModelDidChangedNotification, object: nil)
@@ -49,12 +49,6 @@ class TrainViewController: UIViewController {
                     vc.courseModel = courseModel
                     vc.userInfoModel = userInfoModel
                     vc.courseName = cell.nameLabel.text
-                    vc.isPm = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) <= 11 ? 0 : 1
-                    vc.hour = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) % 12
-                    if vc.hour == 0 {
-                        vc.hour = 12
-                    }
-                    vc.minute = userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.minute ?? 0
                 }
             default:
                 break

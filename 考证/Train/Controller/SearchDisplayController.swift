@@ -49,12 +49,6 @@ class SearchDisplayController: UIViewController {
             vc.courseModel = courseModel
             vc.userInfoModel = userInfoModel
             vc.courseName = cell.textLabel!.text
-            vc.isPm = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) <= 11 ? 0 : 1
-            vc.hour = (userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.hour ?? 20) % 12
-            if vc.hour == 0 {
-                vc.hour = 12
-            }
-            vc.minute = userInfoModel.getUser(withId: userInfoModel.loginID!)?.alertTime[vc.courseName]?.minute ?? 0
         }
     }
 

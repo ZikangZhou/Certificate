@@ -10,7 +10,6 @@
 		050A7422219818B300D7DE89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A7421219818B300D7DE89 /* AppDelegate.swift */; };
 		050A7427219818B300D7DE89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 050A7425219818B300D7DE89 /* Main.storyboard */; };
 		050A742A219818B300D7DE89 /* __.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 050A7428219818B300D7DE89 /* __.xcdatamodeld */; };
-		050A742C219818B600D7DE89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 050A742B219818B600D7DE89 /* Assets.xcassets */; };
 		050A742F219818B600D7DE89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 050A742D219818B600D7DE89 /* LaunchScreen.storyboard */; };
 		050A743A219818B600D7DE89 /* __Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A7439219818B600D7DE89 /* __Tests.swift */; };
 		050A7445219818B600D7DE89 /* __UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A7444219818B600D7DE89 /* __UITests.swift */; };
@@ -40,6 +39,7 @@
 		0561B4F421A69F1800959E4D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0561B4F321A69F1800959E4D /* libsqlite3.tbd */; };
 		0561B4F621AC26B400959E4D /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F521AC26B400959E4D /* StudyViewController.swift */; };
 		0561B4F821AC54CF00959E4D /* EntranceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */; };
+		058ACCB921B0DEA700E44871 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058ACCB821B0DEA700E44871 /* Assets.xcassets */; };
 		05ED373121AEF98200B57F5A /* TrainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED373021AEF98200B57F5A /* TrainNavigationController.swift */; };
 		05ED373321AEF9AA00B57F5A /* ExploreNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */; };
 		05ED373521AEF9EC00B57F5A /* UserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */; };
@@ -68,7 +68,6 @@
 		050A7421219818B300D7DE89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050A7426219818B300D7DE89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		050A7429219818B300D7DE89 /* __.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = __.xcdatamodel; sourceTree = "<group>"; };
-		050A742B219818B600D7DE89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		050A742E219818B600D7DE89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		050A7430219818B600D7DE89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		050A7435219818B600D7DE89 /* 考证Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "考证Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +105,7 @@
 		0561B4F321A69F1800959E4D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0561B4F521AC26B400959E4D /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 		0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceCollectionViewCell.swift; sourceTree = "<group>"; };
+		058ACCB821B0DEA700E44871 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "考证/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		05ED373021AEF98200B57F5A /* TrainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainNavigationController.swift; sourceTree = "<group>"; };
 		05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreNavigationController.swift; sourceTree = "<group>"; };
 		05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNavigationController.swift; sourceTree = "<group>"; };
@@ -173,8 +173,8 @@
 			children = (
 				050A7430219818B600D7DE89 /* Info.plist */,
 				050A7421219818B300D7DE89 /* AppDelegate.swift */,
+				058ACCB821B0DEA700E44871 /* Assets.xcassets */,
 				0561B4BF21A2976A00959E4D /* Notification.swift */,
-				050A742B219818B600D7DE89 /* Assets.xcassets */,
 				050A7428219818B300D7DE89 /* __.xcdatamodeld */,
 				050A742D219818B600D7DE89 /* LaunchScreen.storyboard */,
 				050A7425219818B300D7DE89 /* Main.storyboard */,
@@ -445,7 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				050A742F219818B600D7DE89 /* LaunchScreen.storyboard in Resources */,
-				050A742C219818B600D7DE89 /* Assets.xcassets in Resources */,
+				058ACCB921B0DEA700E44871 /* Assets.xcassets in Resources */,
 				050A7427219818B300D7DE89 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
