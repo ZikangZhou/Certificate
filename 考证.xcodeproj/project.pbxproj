@@ -40,6 +40,11 @@
 		0561B4F621AC26B400959E4D /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F521AC26B400959E4D /* StudyViewController.swift */; };
 		0561B4F821AC54CF00959E4D /* EntranceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */; };
 		058ACCB921B0DEA700E44871 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058ACCB821B0DEA700E44871 /* Assets.xcassets */; };
+		058ACCBC21B53D1800E44871 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058ACCBB21B53D1800E44871 /* UserTableViewController.swift */; };
+		058ACCC621B5696300E44871 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058ACCC521B5696300E44871 /* UserCollectionViewCell.swift */; };
+		058ACCC821B582CE00E44871 /* TrainRecordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058ACCC721B582CE00E44871 /* TrainRecordTableViewController.swift */; };
+		058ACCCA21B5830900E44871 /* PostRecordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058ACCC921B5830900E44871 /* PostRecordTableViewController.swift */; };
+		058ACCCC21B583B500E44871 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058ACCCB21B583B500E44871 /* RecordViewController.swift */; };
 		05ED373121AEF98200B57F5A /* TrainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED373021AEF98200B57F5A /* TrainNavigationController.swift */; };
 		05ED373321AEF9AA00B57F5A /* ExploreNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */; };
 		05ED373521AEF9EC00B57F5A /* UserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */; };
@@ -106,6 +111,11 @@
 		0561B4F521AC26B400959E4D /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 		0561B4F721AC54CF00959E4D /* EntranceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceCollectionViewCell.swift; sourceTree = "<group>"; };
 		058ACCB821B0DEA700E44871 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "考证/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
+		058ACCBB21B53D1800E44871 /* UserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
+		058ACCC521B5696300E44871 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		058ACCC721B582CE00E44871 /* TrainRecordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainRecordTableViewController.swift; sourceTree = "<group>"; };
+		058ACCC921B5830900E44871 /* PostRecordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecordTableViewController.swift; sourceTree = "<group>"; };
+		058ACCCB21B583B500E44871 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		05ED373021AEF98200B57F5A /* TrainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainNavigationController.swift; sourceTree = "<group>"; };
 		05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreNavigationController.swift; sourceTree = "<group>"; };
 		05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNavigationController.swift; sourceTree = "<group>"; };
@@ -180,6 +190,7 @@
 				050A7425219818B300D7DE89 /* Main.storyboard */,
 				0561B4C121A3157900959E4D /* Login */,
 				0561B4C221A3159600959E4D /* Train */,
+				058ACCBA21B53CD800E44871 /* User */,
 				05ED373D21AF928600B57F5A /* Supporting Files */,
 			);
 			path = "考证";
@@ -262,6 +273,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		058ACCBA21B53CD800E44871 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				058ACCBE21B5570A00E44871 /* View */,
+				058ACCBD21B53D6300E44871 /* Controller */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		058ACCBD21B53D6300E44871 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */,
+				058ACCBB21B53D1800E44871 /* UserTableViewController.swift */,
+				058ACCCB21B583B500E44871 /* RecordViewController.swift */,
+				058ACCC721B582CE00E44871 /* TrainRecordTableViewController.swift */,
+				058ACCC921B5830900E44871 /* PostRecordTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		058ACCBE21B5570A00E44871 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				058ACCC521B5696300E44871 /* UserCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		05ED373621AF910100B57F5A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,7 +362,6 @@
 				0561B4CE21A5B96E00959E4D /* MainViewController.swift */,
 				05ED373021AEF98200B57F5A /* TrainNavigationController.swift */,
 				05ED373221AEF9AA00B57F5A /* ExploreNavigationController.swift */,
-				05ED373421AEF9EC00B57F5A /* UserNavigationController.swift */,
 				050A745A2199370000D7DE89 /* TrainViewController.swift */,
 				0561B4CA21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift */,
 				0561B4CC21A58F8C00959E4D /* SearchDisplayController.swift */,
@@ -471,14 +510,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				058ACCBC21B53D1800E44871 /* UserTableViewController.swift in Sources */,
 				0561B4F821AC54CF00959E4D /* EntranceCollectionViewCell.swift in Sources */,
 				05ED373121AEF98200B57F5A /* TrainNavigationController.swift in Sources */,
 				0561B4C921A403F700959E4D /* InitialPageViewController.swift in Sources */,
+				058ACCC821B582CE00E44871 /* TrainRecordTableViewController.swift in Sources */,
 				050DFF66219BD1B700925184 /* SubjectCollectionViewCell.swift in Sources */,
 				0561B4C721A4035600959E4D /* InitialViewController.swift in Sources */,
 				050A7453219928CA00D7DE89 /* CourseTableViewCell.swift in Sources */,
 				0561B4CD21A58F8C00959E4D /* SearchDisplayController.swift in Sources */,
+				058ACCCC21B583B500E44871 /* RecordViewController.swift in Sources */,
 				0561B4CB21A5001C00959E4D /* CoursesOfSubjectTableViewController.swift in Sources */,
+				058ACCCA21B5830900E44871 /* PostRecordTableViewController.swift in Sources */,
 				050A745F219942B500D7DE89 /* Course.swift in Sources */,
 				050A742A219818B300D7DE89 /* __.xcdatamodeld in Sources */,
 				0561B4BA21A060E200959E4D /* UserInfoModel.swift in Sources */,
@@ -495,6 +538,7 @@
 				05ED373321AEF9AA00B57F5A /* ExploreNavigationController.swift in Sources */,
 				0561B4BC21A0645900959E4D /* UserInfo.swift in Sources */,
 				050DFF62219A711100925184 /* CourseModel.swift in Sources */,
+				058ACCC621B5696300E44871 /* UserCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

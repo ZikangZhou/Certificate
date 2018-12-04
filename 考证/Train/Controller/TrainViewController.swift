@@ -26,8 +26,11 @@ class TrainViewController: UIViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
         courseTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
         NotificationCenter.default.addObserver(self, selector: #selector(coursesDidChange), name: .CourseModelDidChangedNotification, object: nil)
+        courseModel.append(course: .init(name: "证券从业资格考试", subject: "金融", image: #imageLiteral(resourceName: "SAC"), isSelected: true))
+        courseModel.append(course: Course(name: "教师资格证考试", subject: "教育", image: #imageLiteral(resourceName: "icons8-培训课-100"), isSelected: true))
+        courseModel.append(course: Course(name: "注册会计师考试", subject: "会计", image: #imageLiteral(resourceName: "icons8-plus-100")))
+        courseModel.append(course: Course(name: "执业药师证", subject: "医学", image: #imageLiteral(resourceName: "icons8-plus-100")))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,12 +60,6 @@ class TrainViewController: UIViewController {
     }
     
     @IBAction private func addButtonPressed(_ sender: UIButton) {
-        let name = "证券从业资格考试"
-        let subject = "金融"
-        let image = #imageLiteral(resourceName: "SAC")
-        courseModel.append(course: .init(name: name, subject: subject, image: image, isSelected: true))
-        courseModel.append(course: Course(name: "教师资格证考试", subject: "教育", image: #imageLiteral(resourceName: "icons8-培训课-100")))
-        courseModel.append(course: Course(name: "测试一下", subject: "会计", image: #imageLiteral(resourceName: "icons8-plus-100")))
     }
     
     @objc func coursesDidChange(_ notification: Notification) {
